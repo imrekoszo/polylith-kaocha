@@ -1,0 +1,7 @@
+{:deps {polylith-kaocha.bases/test-runner {:local/root "../../bases/test-runner"}
+        polylith-kaocha.components/xf {:local/root "../../components/xf"}
+
+        org.clojure/clojure {:mvn/version "1.11.1-rc1"}}
+
+ :aliases {:test {:extra-paths []
+                  :extra-deps  {lambdaisland/kaocha {:mvn/version "1.64.1010"}}}}}

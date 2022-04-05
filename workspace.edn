@@ -6,4 +6,6 @@
        :auto-add false}
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
- :projects {"development" {:alias "dev"}}}
+ :test {:make-test-runner polylith-kaocha.test-runner.core/make}
+ :projects {"development" {:alias "dev"}
+            "test-runner" {:alias "tr"}}}
