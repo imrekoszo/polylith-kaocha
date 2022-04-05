@@ -1,10 +1,10 @@
 {:aliases
  {:dev {:extra-paths ["development/src"
 
-                      ;; poly modules for Cursive
+                      ;; poly modules workaround for Cursive, https://github.com/cursive-ide/cursive/issues/2554
                       "bases/test-runner/src"
                       "components/xf/resources"]
-        :extra-deps {org.clojure/clojure {:mvn/version "1.11.1-rc1"}
+        :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
 
                      ;; poly modules
                      polylith-kaocha.bases/test-runner {:local/root "bases/test-runner"
