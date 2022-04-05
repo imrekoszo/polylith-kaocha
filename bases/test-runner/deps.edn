@@ -1,7 +1,14 @@
 {:paths ["src"]
- :deps {polylith/clj-api
-        {:git/url "https://github.com/polyfy/polylith"
-         :sha "1c4c7f732149cbd81260b9a4ddc08d913c37d3ff"
-         :deps/root "projects/api"}}
- :aliases {:test {:extra-paths ["test"]
-                  :extra-deps {}}}}
+ :deps {}
+ ;; polylith/clj-api is a "provided" dependency
+ ;; so its :local/root deps don't clash with
+ ;; those of polylith/clj-poly when used
+ :aliases {:dev {:extra-deps {polylith/clj-api
+                              {:git/url "https://github.com/polyfy/polylith"
+                               :sha "1c4c7f732149cbd81260b9a4ddc08d913c37d3ff"
+                               :deps/root "projects/api"}}}
+           :test {:extra-paths ["test"]
+                  :extra-deps {polylith/clj-api
+                               {:git/url "https://github.com/polyfy/polylith"
+                                :sha "1c4c7f732149cbd81260b9a4ddc08d913c37d3ff"
+                                :deps/root "projects/api"}}}}}
