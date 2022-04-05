@@ -1,0 +1,8 @@
+{:config-paths
+ ["babashka/sci"
+  "metosin/malli"
+  "polylith-kaocha/components/xf"
+  "rewrite-clj/rewrite-clj"]
+
+ :linters {:refer-all {:exclude [clojure.test]}
+           :unsorted-required-namespaces {:level :error}}}

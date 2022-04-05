@@ -2,7 +2,8 @@
  {:dev {:extra-paths ["development/src"
 
                       ;; poly modules for Cursive
-                      "bases/test-runner/src"]
+                      "bases/test-runner/src"
+                      "components/xf/resources"]
         :extra-deps {org.clojure/clojure {:mvn/version "1.11.1-rc1"}
 
                      ;; poly modules
