@@ -17,6 +17,8 @@ io.github.imrekoszo/polylith-kaocha {:git/tag   "v0.2.0"
                                      :deps/root "projects/test-runner"}
 ```
 
+### 1. Add dep to :poly alias
+
 Add the above to the `:poly` alias of the root `deps.edn` in your Polylith workspace, along with a reference to a
 version of `polylith/clj-poly` which
 includes [pluggable test runner support](https://github.com/polyfy/polylith/pull/196):
@@ -40,6 +42,8 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
  }
 ```
 
+### 2. Reference in workspace config
+
 After which you can configure your projects to be tested with it in `workspace.edn`:
 
 ```clojure
@@ -55,6 +59,21 @@ After which you can configure your projects to be tested with it in `workspace.e
 
   ;; To revert to the default test runner only for specific projects
   "bar" {:test {:make-test-runner :default}}}
+
+ }
+```
+
+### 3. Add kaocha dep to affected projects
+
+Since this test runner will try to invoke Kaocha's own commands in the contexts of projects configured, Kaocha itself must be added as a test dependency for every such project:
+
+```clojure
+{
+
+ :aliases
+ {:test
+  {:extra-deps
+   {lambdaisland/kaocha {:mvn/version "1.64.1010"}}}}
 
  }
 ```
