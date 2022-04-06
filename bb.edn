@@ -1,0 +1,16 @@
+{:tasks
+ {:init
+  (do
+    (defn clojure-repro [& args]
+      (apply clojure "-Srepro" args))
+
+    (defn poly [& args]
+      (apply clojure-repro "-M:poly" args)))
+
+  shell
+  {:doc "clojure -Srepro -M:poly shell <args>"
+   :task (apply poly "shell" *command-line-args*)}
+
+  test
+  {:doc "clojure -Srepro -M:poly test <args>"
+   :task (apply poly "test" *command-line-args*)}}}

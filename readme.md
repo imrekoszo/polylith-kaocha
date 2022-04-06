@@ -7,13 +7,26 @@ Created as a demonstration for
 Polylith's [WIP pluggable test runner support](https://github.com/polyfy/polylith/pull/196), it is very basic and only
 aims to support `clojure.test` for now.
 
+### Disclaimer
+
+This repository aims to serve as an example implementation of a test runner that can be plugged into a Polylith workspace. The source code itself is organized into a Polylith workspace for the following reasons:
+
+1. So that it eats its own dogfood, that is, tests for this repository are executed using the product of it
+2. So that the author can practice setting up a Polylith repository
+
+This repository is not intended to serve as a demonstration of a Polylith workspace and in places might not be fully idiomatic Polylith.
+
+Breaking changes should be expected, especially until the [pluggable test runner support](https://github.com/polyfy/polylith/pull/196) PR gets merged.
+
+Once the PR mentioned is merged, updates to this codebase will probably cease.
+
 ## Usage
 
 Clojure CLI/deps.edn coordinates:
 
 ```clojure
-io.github.imrekoszo/polylith-kaocha {:git/tag   "v0.2.0"
-                                     :git/sha   "0d76766"
+io.github.imrekoszo/polylith-kaocha {:git/tag   "v0.3.0"
+                                     :git/sha   "2a6a445"
                                      :deps/root "projects/test-runner"}
 ```
 
@@ -31,12 +44,12 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
   {:extra-deps
    {polylith/clj-poly
     {:git/url   "https://github.com/polyfy/polylith"
-     :git/sha   "1c4c7f732149cbd81260b9a4ddc08d913c37d3ff"
+     :git/sha   "9d7bfdbe27ea19143c220b7d1a980124c37e2128"
      :deps/root "projects/poly"}
 
     io.github.imrekoszo/polylith-kaocha
-    {:git/tag   "v0.2.0"
-     :git/sha   "0d76766"
+    {:git/tag   "v0.3.0"
+     :git/sha   "2a6a445"
      :deps/root "projects/test-runner"}}}}
 
  }
@@ -80,4 +93,8 @@ Since this test runner will try to invoke Kaocha's own commands in the contexts 
 
 ## Development
 
-This repository itself is a [Polylith](https://github.com/polyfy/polylith/) workspace, so those conventions apply.
+This repository itself is a [Polylith](https://github.com/polyfy/polylith/) workspace, so those conventions, commands etc. mostly apply.
+
+### bb tasks
+
+There are some [Babashka](https://github.com/babashka/babashka) [tasks](https://book.babashka.org/#tasks) defined in `bb.edn` to save some typing. Use `bb tasks` to find out more.
