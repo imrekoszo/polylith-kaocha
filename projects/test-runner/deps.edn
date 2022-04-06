@@ -1,5 +1,6 @@
-{:deps {polylith-kaocha.bases/test-runner {:local/root "../../bases/test-runner"}
-        polylith-kaocha.components/xf {:local/root "../../components/xf"}
+{:deps {polylith-kaocha.bricks/kaocha-test-runner {:local/root "../../components/kaocha-test-runner"}
+        polylith-kaocha.bricks/test-runner {:local/root "../../bases/test-runner"}
+        polylith-kaocha.bricks/xf {:local/root "../../components/xf"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}}
 

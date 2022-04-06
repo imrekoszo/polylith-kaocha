@@ -1,7 +1,7 @@
-(ns polylith-kaocha.test-runner.core
+(ns polylith-kaocha.kaocha-test-runner.core
   (:require
     [net.cgrand.xforms :as x]
-    [polylith.clj.core.test-runner-plugin.interface :as test-runner-plugin]))
+    [polylith.clj.core.test-runner-contract.interface :as test-runner-contract]))
 
 (defn path-to-consider-for-test?-fn [projects-to-test]
   (let [nil-or-project-to-test? (some-fn nil? (set projects-to-test))]
@@ -11,7 +11,7 @@
         (second)
         (nil-or-project-to-test?)))))
 
-(defn make
+(defn create
   [{:keys [#_workspace project changes #_test-settings]}]
   (let [{:keys [name paths]} project
         {:keys [project-to-projects-to-test]} changes
@@ -42,11 +42,11 @@
                                                      :kaocha.filter/skip-meta [:kaocha/skip]}
                                                     #_{:kaocha.testable/type :kaocha.type/spec.test.check
                                                        :kaocha.testable/id :generative-fdef-checks}]}))))]
-    (reify test-runner-plugin/TestRunner
+    (reify test-runner-contract/TestRunner
       (test-sources-present? [_] test-sources-present)
 
       (tests-present? [this {:keys [eval-in-project] :as _opts}]
-        (and (test-runner-plugin/test-sources-present? this)
+        (and (test-runner-contract/test-sources-present? this)
           (let [config (->test-plan-config eval-in-project)]
             (eval-in-project
               `(do (require 'kaocha.api 'kaocha.testable 'kaocha.hierarchy)
@@ -55,7 +55,7 @@
                    (some (some-fn kaocha.hierarchy/leaf? :kaocha.testable/load-error))))))))
 
       (run-tests [this {:keys [color-mode eval-in-project is-verbose] :as opts}]
-        (when (test-runner-plugin/tests-present? this opts)
+        (when (test-runner-contract/tests-present? this opts)
           (let [config (->test-plan-config eval-in-project)
                 {:kaocha.result/keys [error fail]}
                 (eval-in-project
