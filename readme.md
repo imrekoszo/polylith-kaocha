@@ -25,8 +25,8 @@ Once the PR mentioned is merged, updates to this codebase will probably cease.
 Clojure CLI/deps.edn coordinates:
 
 ```clojure
-io.github.imrekoszo/polylith-kaocha {:git/tag   "v0.3.0"
-                                     :git/sha   "2a6a445"
+io.github.imrekoszo/polylith-kaocha {:git/tag   "v0.3.1"
+                                     :git/sha   "becf880"
                                      :deps/root "projects/test-runner"}
 ```
 
@@ -48,8 +48,8 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
      :deps/root "projects/poly"}
 
     io.github.imrekoszo/polylith-kaocha
-    {:git/tag   "v0.3.0"
-     :git/sha   "2a6a445"
+    {:git/tag   "v0.3.1"
+     :git/sha   "becf880"
      :deps/root "projects/test-runner"}}}}
 
  }
