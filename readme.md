@@ -91,6 +91,12 @@ Since this test runner will try to invoke Kaocha's own commands in the contexts 
  }
 ```
 
+### 4. Run tests
+
+```shell
+clojure -Srepro -M:poly test :all
+```
+
 ## Development
 
 This repository itself is a [Polylith](https://github.com/polyfy/polylith/) workspace, so those conventions, commands etc. mostly apply.
