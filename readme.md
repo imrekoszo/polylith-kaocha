@@ -63,12 +63,12 @@ After which you can configure your projects to be tested with it in `workspace.e
 {
 
  ;; To use it as the default test runner in the workspace
- :test {:make-test-runner polylith-kaocha.test-runner.core/make}
+ :test {:make-test-runner polylith-kaocha.test-runner/create}
 
  :projects
  {
   ;; To only use it for specific projects
-  "foo" {:test {:make-test-runner polylith-kaocha.test-runner.core/make}}
+  "foo" {:test {:make-test-runner polylith-kaocha.test-runner/create}}
 
   ;; To revert to the default test runner only for specific projects
   "bar" {:test {:make-test-runner :default}}}
