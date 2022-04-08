@@ -43,6 +43,8 @@
                                                     #_{:kaocha.testable/type :kaocha.type/spec.test.check
                                                        :kaocha.testable/id :generative-fdef-checks}]}))))]
     (reify test-runner-contract/TestRunner
+      (test-runner-name [_] "Kaocha test runner example")
+
       (test-sources-present? [_] test-sources-present)
 
       (tests-present? [this {:keys [eval-in-project] :as _opts}]

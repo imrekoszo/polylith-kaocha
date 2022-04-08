@@ -44,7 +44,7 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
   {:extra-deps
    {polylith/clj-poly
     {:git/url   "https://github.com/polyfy/polylith"
-     :git/sha   "9d7bfdbe27ea19143c220b7d1a980124c37e2128"
+     :git/sha   "0230afb1ecf27f8ce925c724be69a23a91bff095"
      :deps/root "projects/poly"}
 
     io.github.imrekoszo/polylith-kaocha
@@ -71,8 +71,11 @@ After which you can configure your projects to be tested with it in `workspace.e
   "foo" {:test {:create-test-runner polylith-kaocha.test-runner/create}}
 
   ;; To revert to the default test runner only for specific projects
-  "bar" {:test {:create-test-runner :default}}}
-
+  "bar" {:test {:create-test-runner :default}}
+  
+  ;; To use it in addition to the default test runner
+  "baz" {:test {:create-test-runner [:default polylith-kaocha.test-runner/create]}}
+  }
  }
 ```
 
