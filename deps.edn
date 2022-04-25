@@ -8,9 +8,9 @@
         :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
 
                      ;; poly modules
-                     polylith-kaocha.bricks/kaocha-test-runner {:local/root "components/kaocha-test-runner"}
-                     polylith-kaocha.bricks/test-runner {:local/root "bases/test-runner"}
-                     polylith-kaocha.bricks/xf {:local/root "components/xf"}}}
+                     polylith-kaocha.bases/test-runner {:local/root "bases/test-runner"}
+                     polylith-kaocha.components/kaocha-test-runner {:local/root "components/kaocha-test-runner"}
+                     polylith-kaocha.components/xf {:local/root "components/xf"}}}
 
   :test {:extra-paths [;; poly modules
                        "components/kaocha-test-runner/test"]
