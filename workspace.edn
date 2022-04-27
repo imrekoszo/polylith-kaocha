@@ -6,6 +6,18 @@
        :auto-add false}
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
- :test {:create-test-runner [:default polylith-kaocha.test-runner/create]}
- :projects {"development" {:alias "dev"}
-            "test-runner" {:alias "tr"}}}
+ :test {:create-test-runner [:default
+                             polylith-kaocha.test-runner/create
+                             #_polylith-kaocha.reload-runner/create]}
+ :projects {"development"
+            {:alias "dev"}
+
+            "example"
+            {:alias "ex"
+             :test {:polylith-kaocha/config-resource "polylith-kaocha/example/tests.edn"}}
+
+            "kaocha-wrapper"
+            {:alias "kw"}
+
+            "test-runner"
+            {:alias "tr"}}}

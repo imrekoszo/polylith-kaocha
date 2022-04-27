@@ -7,6 +7,10 @@
     (defn poly [& args]
       (apply clojure-repro "-M:poly" args)))
 
+  poly
+  {:doc "clojure -Srepro -M:poly <args>"
+   :task (apply poly *command-line-args*)}
+
   shell
   {:doc "clojure -Srepro -M:poly shell <args>"
    :task (apply poly "shell" *command-line-args*)}

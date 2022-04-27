@@ -1,9 +1,9 @@
 (ns polylith-kaocha.kaocha-test-runner.interface-test
   (:require
-    [clojure.test :refer :all]
-    [polylith-kaocha.kaocha-test-runner.interface :as sut]
-    [polylith.clj.core.test-runner-contract.interface.initializers :as test-runner-initializers]
-    [polylith.clj.core.test-runner-contract.interface.verifiers :as test-runner-verifiers]))
+   [clojure.test :refer :all]
+   [polylith-kaocha.kaocha-test-runner.interface :as sut]
+   [polylith.clj.core.test-runner-contract.interface.initializers :as test-runner-initializers]
+   [polylith.clj.core.test-runner-contract.interface.verifiers :as test-runner-verifiers]))
 
 (deftest test-runner-is-valid
   (let [constructor (test-runner-initializers/->constructor-var `sut/create)]

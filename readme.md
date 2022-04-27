@@ -33,8 +33,8 @@ Once the PR mentioned is merged, updates to this codebase will probably cease.
 Clojure CLI/deps.edn coordinates:
 
 ```clojure
-io.github.imrekoszo/polylith-kaocha {:git/tag   "v0.4.0"
-                                     :git/sha   "e79eecd"
+io.github.imrekoszo/polylith-kaocha {:git/tag "v0.4.0"
+                                     :git/sha "e79eecd"
                                      :deps/root "projects/test-runner"}
 ```
 
@@ -52,13 +52,14 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
  {:poly
   {:extra-deps
    {polylith/clj-poly
-    {:git/url   "https://github.com/polyfy/polylith"
-     :git/sha   "0230afb1ecf27f8ce925c724be69a23a91bff095"
+    {:git/url "https://github.com/polyfy/polylith"
+     :git/sha "e5b181f3664485331ee0b3104f23f62a0a347d4e"
      :deps/root "projects/poly"}
 
-    io.github.imrekoszo/polylith-kaocha
-    {:git/tag   "v0.4.0"
-     :git/sha   "e79eecd"
+    polylith-kaocha/test-runner
+    {:git/url "https://github.com/imrekoszo/polylith-kaocha"
+     :git/tag "v0.5.0"
+     :git/sha "TBD"
      :deps/root "projects/test-runner"}}}}
 
  }
@@ -78,22 +79,25 @@ in `workspace.edn`:
  :projects
  {
   ;; To only use it for specific projects
-  "foo" {:test {:create-test-runner polylith-kaocha.test-runner/create}}
+  "foo" {:test {:create-test-runner polylith-kaocha.test-runner/create
+
+                ;; Use a specific kaocha configuration from resource
+                :polylith-kaocha/config-resource "resource/path/my-tests.edn"}}
 
   ;; To revert to the default test runner only for specific projects
   "bar" {:test {:create-test-runner :default}}
-  
+
   ;; To use it in addition to the default test runner
   "baz" {:test {:create-test-runner [:default polylith-kaocha.test-runner/create]}}
   }
  }
 ```
 
-### 3. Add kaocha dep to affected projects
+### 3. Add kaocha wrapper dep to affected projects
 
-Since this test runner will try to invoke Kaocha's own commands in the contexts
-of projects configured, Kaocha itself must be added as a test dependency for
-every such project:
+Since this test runner will try to invoke Kaocha's own commands via the wrapper
+in this workspace in the contexts of projects configured, the wrapper itself
+must be added as a test dependency for every such project:
 
 ```clojure
 {
@@ -101,7 +105,11 @@ every such project:
  :aliases
  {:test
   {:extra-deps
-   {lambdaisland/kaocha {:mvn/version "1.64.1010"}}}}
+   {polylith-kaocha/kaocha-wrapper
+    {:git/url "https://github.com/imrekoszo/polylith-kaocha"
+     :git/tag "v0.5.0"
+     :git/sha "TBD"
+     :deps/root "projects/kaocha-wrapper"}}}}
 
  }
 ```

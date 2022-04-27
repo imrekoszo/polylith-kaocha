@@ -2,24 +2,34 @@
  {:dev {:extra-paths ["development/src"
 
                       ;; poly modules workaround for Cursive, https://github.com/cursive-ide/cursive/issues/2554
+                      "bases/example/src"
                       "bases/test-runner/src"
                       "components/kaocha-test-runner/src"
+                      "components/kaocha-wrapper/resources"
+                      "components/kaocha-wrapper/src"
                       "components/xf/resources"]
         :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
 
                      ;; poly modules
+                     polylith-kaocha.bases/example {:local/root "bases/example"}
                      polylith-kaocha.bases/test-runner {:local/root "bases/test-runner"}
                      polylith-kaocha.components/kaocha-test-runner {:local/root "components/kaocha-test-runner"}
+                     polylith-kaocha.components/kaocha-wrapper {:local/root "components/kaocha-wrapper"}
                      polylith-kaocha.components/xf {:local/root "components/xf"}}}
 
   :test {:extra-paths [;; poly modules
-                       "components/kaocha-test-runner/test"]
-         :extra-deps {lambdaisland/kaocha {:mvn/version "1.64.1010"}}}
+                       "bases/example/test"
+                       "components/kaocha-test-runner/test"
+                       "components/kaocha-wrapper/test"
+                       "components/kaocha-wrapper/test-resources"
+                       "projects/example/test-resources"]
+         :extra-deps {}}
 
   :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
+         :extra-paths ["development/poly"]
          :extra-deps {polylith/clj-poly
                       {:git/url "https://github.com/polyfy/polylith"
-                       :git/sha "0230afb1ecf27f8ce925c724be69a23a91bff095"
+                       :git/sha "e5b181f3664485331ee0b3104f23f62a0a347d4e"
                        :deps/root "projects/poly"}
 
                       polylith-kaocha/test-runner

@@ -4,5 +4,10 @@
 
         org.clojure/clojure {:mvn/version "1.11.1"}}
 
- :aliases {:test {:extra-paths []
-                  :extra-deps {lambdaisland/kaocha {:mvn/version "1.64.1010"}}}}}
+ :aliases
+ {:test
+  {:extra-paths []
+   :extra-deps
+   {;; referencing the component here as we should not reference
+    ;; another project from within the polylith workspace
+    polylith-kaocha.components/kaocha-wrapper {:local/root "../../components/kaocha-wrapper"}}}}}
