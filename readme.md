@@ -1,13 +1,11 @@
 # polylith-kaocha
 
 Simple [Kaocha](https://github.com/lambdaisland/kaocha )-based test runner
-implementation
-for [Polylith](https://github.com/polyfy/polylith/).
+implementation for [Polylith](https://github.com/polyfy/polylith/).
 
 Created as a demonstration for
 Polylith's [WIP pluggable test runner support](https://github.com/polyfy/polylith/pull/196)
-, it is very basic and only
-aims to support `clojure.test` for now.
+, it can now use custom Kaocha configuration from resources.
 
 ### Disclaimer
 
@@ -30,19 +28,10 @@ Once the PR mentioned is merged, updates to this codebase will probably cease.
 
 ## Usage
 
-Clojure CLI/deps.edn coordinates:
-
-```clojure
-io.github.imrekoszo/polylith-kaocha {:git/tag "v0.4.0"
-                                     :git/sha "e79eecd"
-                                     :deps/root "projects/test-runner"}
-```
-
 ### 1. Add dep to :poly alias
 
 Add the above to the `:poly` alias of the root `deps.edn` in your Polylith
-workspace, along with a reference to a
-version of `polylith/clj-poly` which
+workspace, along with a reference to a version of `polylith/clj-poly` which
 includes [pluggable test runner support](https://github.com/polyfy/polylith/pull/196):
 
 ```clojure
@@ -59,7 +48,7 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
     polylith-kaocha/test-runner
     {:git/url "https://github.com/imrekoszo/polylith-kaocha"
      :git/tag "v0.5.0"
-     :git/sha "TBD"
+     :git/sha "1ef8ded"
      :deps/root "projects/test-runner"}}}}
 
  }
@@ -108,7 +97,7 @@ must be added as a test dependency for every such project:
    {polylith-kaocha/kaocha-wrapper
     {:git/url "https://github.com/imrekoszo/polylith-kaocha"
      :git/tag "v0.5.0"
-     :git/sha "TBD"
+     :git/sha "1ef8ded"
      :deps/root "projects/kaocha-wrapper"}}}}
 
  }
