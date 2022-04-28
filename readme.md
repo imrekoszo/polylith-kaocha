@@ -47,8 +47,8 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
 
     polylith-kaocha/test-runner
     {:git/url "https://github.com/imrekoszo/polylith-kaocha"
-     :git/tag "v0.5.0"
-     :git/sha "1ef8ded"
+     :git/tag "v0.5.1"
+     :git/sha "17a93fa"
      :deps/root "projects/test-runner"}}}}
 
  }
@@ -96,8 +96,8 @@ must be added as a test dependency for every such project:
   {:extra-deps
    {polylith-kaocha/kaocha-wrapper
     {:git/url "https://github.com/imrekoszo/polylith-kaocha"
-     :git/tag "v0.5.0"
-     :git/sha "1ef8ded"
+     :git/tag "v0.5.1"
+     :git/sha "17a93fa"
      :deps/root "projects/kaocha-wrapper"}}}}
 
  }
