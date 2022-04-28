@@ -42,7 +42,7 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
   {:extra-deps
    {polylith/clj-poly
     {:git/url "https://github.com/polyfy/polylith"
-     :git/sha "e5b181f3664485331ee0b3104f23f62a0a347d4e"
+     :git/sha "cce8c7a57ef0c4b58b8fad1c6a9294ac78247c49"
      :deps/root "projects/poly"}
 
     polylith-kaocha/test-runner
