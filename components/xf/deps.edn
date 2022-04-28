@@ -1,4 +1,4 @@
-{:paths ["resources"]
+{:paths []
  :deps {net.cgrand/xforms {:mvn/version "0.19.2"
                            :exclusions [org.clojure/clojurescript]}}
  :aliases {:test {:extra-paths []

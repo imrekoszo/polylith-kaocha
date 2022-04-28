@@ -1,8 +1,9 @@
-{:config-paths
- ["babashka/sci"
-  "metosin/malli"
-  "polylith-kaocha/components/xf"
-  "rewrite-clj/rewrite-clj"]
+{:config-paths ["babashka/sci"
+                "metosin/malli"
+                "rewrite-clj/rewrite-clj"]
 
  :linters {:refer-all {:exclude [clojure.test]}
-           :unsorted-required-namespaces {:level :error}}}
+           :unresolved-symbol {:exclude [(net.cgrand.xforms/for [_ %])]}
+           :unsorted-required-namespaces {:level :error}}
+
+ :lint-as {net.cgrand.xforms/for clojure.core/for}}

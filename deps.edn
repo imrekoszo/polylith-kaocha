@@ -6,8 +6,7 @@
                       "bases/test-runner/src"
                       "components/kaocha-test-runner/src"
                       "components/kaocha-wrapper/resources"
-                      "components/kaocha-wrapper/src"
-                      "components/xf/resources"]
+                      "components/kaocha-wrapper/src"]
         :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
 
                      ;; poly modules
