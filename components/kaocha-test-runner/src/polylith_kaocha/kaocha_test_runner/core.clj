@@ -1,6 +1,7 @@
 (ns polylith-kaocha.kaocha-test-runner.core
   (:require
    [net.cgrand.xforms :as x]
+   [polylith-kaocha.util.interface :as util]
    [polylith.clj.core.test-runner-contract.interface :as test-runner-contract]))
 
 (defn path-to-consider-for-test?-fn [projects-to-test]
@@ -10,6 +11,25 @@
         (re-find #"^projects/([^/]+)")
         (second)
         (nil-or-project-to-test?)))))
+
+(defn runner-opts->kaocha-poly-opts
+  [{:keys [#_workspace project changes test-settings color-mode is-verbose]}]
+  (let [{:keys [name paths]} project
+        {:keys [project-to-projects-to-test]} changes
+        projects-to-test (get project-to-projects-to-test name)
+        path-to-consider-for-test? (path-to-consider-for-test?-fn projects-to-test)
+        src-paths (filterv path-to-consider-for-test? (:src paths))
+        test-paths (filterv path-to-consider-for-test? (:test paths))]
+    (cond-> {:src-paths src-paths
+             :test-paths test-paths
+             :is-verbose is-verbose
+             :is-colored (not= "none" color-mode)}
+
+      (contains? test-settings :polylith-kaocha/config-resource)
+      (assoc :config-resource (:polylith-kaocha/config-resource test-settings))
+
+      (contains? test-settings :polylith-kaocha.kaocha-wrapper/post-process-config)
+      (assoc :post-process-config (:polylith-kaocha.kaocha-wrapper/post-process-config test-settings)))))
 
 (defn create
   "Returns a test TestRunner which does its job by invoking functions
@@ -29,32 +49,33 @@
    {:foo {:test {:polylith-kaocha/config-resource \"path/from/classpath/root\"}} ; project-specific
    }}
   ```"
-  [{:keys [#_workspace project changes test-settings]}]
-  (let [{:keys [name paths]} project
-        {:keys [project-to-projects-to-test]} changes
-        {:polylith-kaocha/keys [config-resource]} test-settings
-        projects-to-test (get project-to-projects-to-test name)
-        path-to-consider-for-test? (path-to-consider-for-test?-fn projects-to-test)
-        src-paths (filterv path-to-consider-for-test? (:src paths))
-        test-paths (filterv path-to-consider-for-test? (:test paths))
-        test-sources-present (x/some cat [src-paths test-paths])
-        kaocha-poly-opts {:config-resource config-resource
-                          :src-paths src-paths
-                          :test-paths test-paths}
-        tests-present?-sym 'polylith-kaocha.kaocha-wrapper.interface.test-plan/tests-present?
-        run-tests-sym 'polylith-kaocha.kaocha-wrapper.interface.runner/run-tests]
+  [{:keys [test-settings is-verbose] :as runner-opts}]
+  (let [{:polylith-kaocha/keys [runner-opts->kaocha-poly-opts
+                                tests-present?
+                                run-tests]
+         :or {tests-present? 'polylith-kaocha.kaocha-wrapper.interface.test-plan/tests-present?
+              run-tests 'polylith-kaocha.kaocha-wrapper.interface.runner/run-tests
+              runner-opts->kaocha-poly-opts `runner-opts->kaocha-poly-opts}}
+        test-settings
+
+        kaocha-poly-opts (util/rrapply runner-opts->kaocha-poly-opts runner-opts)
+        tests-present?-form (util/rrapply-call-form `'~tests-present? `'~kaocha-poly-opts)
+        run-tests-form (util/rrapply-call-form `'~run-tests `'~kaocha-poly-opts)]
     (reify test-runner-contract/TestRunner
       (test-runner-name [_] "Kaocha test runner")
 
-      (test-sources-present? [_] test-sources-present)
+      (test-sources-present? [_]
+        (->> kaocha-poly-opts
+          ((juxt :src-paths :test-paths))
+          (x/some cat)))
 
-      (tests-present? [_ {:keys [eval-in-project] :as _opts}]
-        (eval-in-project `((requiring-resolve '~tests-present?-sym) ~kaocha-poly-opts)))
+      (tests-present? [_ {:keys [eval-in-project]}]
+        (when is-verbose
+          (println "Evaluating in project: " (pr-str tests-present?-form)))
+        (eval-in-project tests-present?-form))
 
-      (run-tests [_ {:keys [color-mode eval-in-project is-verbose] :as _opts}]
-        (let [kaocha-poly-opts (merge kaocha-poly-opts
-                                 {:is-verbose is-verbose
-                                  :is-colored (not= "none" color-mode)})
-              failure-error-count (eval-in-project `((requiring-resolve '~run-tests-sym) ~kaocha-poly-opts))]
-          (when (pos? failure-error-count)
-            (throw (Exception. "\nTests failed."))))))))
+      (run-tests [_ {:keys [eval-in-project]}]
+        (when is-verbose
+          (println "Evaluating in project: " (pr-str run-tests-form)))
+        (when (pos? (eval-in-project run-tests-form))
+          (throw (Exception. "\nTests failed.")))))))

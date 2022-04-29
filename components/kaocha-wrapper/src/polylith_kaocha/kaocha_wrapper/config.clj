@@ -3,7 +3,8 @@
    [clojure.java.io :as io]
    [kaocha.config]
    [kaocha.plugin]
-   [polylith-kaocha.kaocha-wrapper.plugin-util :as plugin-util]))
+   [polylith-kaocha.kaocha-wrapper.plugin-util :as plugin-util]
+   [polylith-kaocha.util.interface :as util]))
 
 (defn load-config-resource [resource-name]
   (let [resource-name (or resource-name "polylith-kaocha/kaocha-wrapper/default-tests.edn")]
@@ -29,8 +30,19 @@
 (defn with-poly-paths [config opts]
   (update config :kaocha/tests #(mapv (with-overridden-paths opts) %)))
 
+(defn default-post-process-config [config opts]
+  (-> config
+    (with-poly-paths opts)))
+
+(defn with-post-processing
+  [config
+   {:keys [post-process-config]
+    :or {post-process-config `default-post-process-config}
+    :as opts}]
+  (util/rrapply post-process-config config opts))
+
 (defn load-poly-prepared-config [{:keys [config-resource] :as opts}]
   (-> config-resource
     (load-config-resource)
     (with-hooks)
-    (with-poly-paths opts)))
+    (with-post-processing opts)))

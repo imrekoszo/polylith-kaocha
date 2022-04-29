@@ -6,9 +6,7 @@
  {:test
   {:extra-paths ["test-resources"]
    :extra-deps
-   {;; referencing the component here as we should not reference
-    ;; another project from within the polylith workspace
-    polylith-kaocha.components/kaocha-wrapper {:local/root "../../components/kaocha-wrapper"}
+   {polylith-kaocha/kaocha-wrapper {:local/root "../kaocha-wrapper"}
 
     ;; kaocha's auto spec test checking needs orchestra and test.check provided
     orchestra/orchestra {:mvn/version "2021.01.01-1"}
