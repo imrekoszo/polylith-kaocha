@@ -4,6 +4,16 @@
 
  :linters {:refer-all {:exclude [clojure.test]}
            :unresolved-symbol {:exclude [(net.cgrand.xforms/for [_ %])]}
-           :unsorted-required-namespaces {:level :error}}
+           :unsorted-required-namespaces {:level :error}
+           :used-underscored-binding {:level :warning}
+           :reduce-without-init {:level :warning}
+           :use {:level :error}
+           :docstring-no-summary {:level :warning}
+           ;:docstring-leading-trailing-whitespace {:level :warning}
+           :single-key-in {:level :warning}
+           :shadowed-var {:level :warning}
+           :bb.edn-task-missing-docstring {:level :warning}
+           :redundant-fn-wrapper {:level :warning}
+           :keyword-binding {:level :warning}}
 
  :lint-as {net.cgrand.xforms/for clojure.core/for}}
