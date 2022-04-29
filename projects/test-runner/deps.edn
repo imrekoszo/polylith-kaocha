@@ -8,6 +8,4 @@
  {:test
   {:extra-paths []
    :extra-deps
-   {;; referencing the component here as we should not reference
-    ;; another project from within the polylith workspace
-    polylith-kaocha.components/kaocha-wrapper {:local/root "../../components/kaocha-wrapper"}}}}}
+   {polylith-kaocha/kaocha-wrapper {:local/root "../kaocha-wrapper"}}}}}
