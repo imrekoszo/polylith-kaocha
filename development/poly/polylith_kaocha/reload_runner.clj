@@ -1,4 +1,6 @@
-(ns polylith-kaocha.reload-runner)
+(ns polylith-kaocha.reload-runner
+  (:require
+   [polylith-kaocha.util.interface :as util]))
 
 (defn reload [ns-sym]
   (println "Reloading " ns-sym)
@@ -10,4 +12,4 @@
   [opts]
   (reload 'polylith-kaocha.kaocha-test-runner.core)
   #_(reload 'polylith.clj.core.test-runner-orchestrator.core)
-  ((requiring-resolve 'polylith-kaocha.test-runner/create) opts))
+  (util/rrapply 'polylith-kaocha.test-runner/create opts))
