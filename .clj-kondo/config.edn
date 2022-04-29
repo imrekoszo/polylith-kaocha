@@ -1,4 +1,5 @@
-{:config-paths ["babashka/sci"
+{:config-paths ["babashka/fs"
+                "babashka/sci"
                 "metosin/malli"
                 "rewrite-clj/rewrite-clj"]
 

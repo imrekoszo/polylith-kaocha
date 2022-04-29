@@ -4,7 +4,7 @@ Simple [Kaocha](https://github.com/lambdaisland/kaocha )-based test runner
 implementation for [Polylith](https://github.com/polyfy/polylith/).
 
 Created as a demonstration for Polylith's
-[WIP pluggable test runner support](https://github.com/polyfy/polylith/pull/196)
+[pluggable test runner support](https://github.com/polyfy/polylith/pull/196)
 , it can use custom Kaocha configuration from resources and allows for
 extensibility by providing a few hooks throughout the process.
 
@@ -21,11 +21,7 @@ into a Polylith workspace for the following reasons:
 This repository is not intended to serve as a demonstration of a Polylith
 workspace and in places might not be fully idiomatic Polylith.
 
-Breaking changes should be expected, especially until
-the [pluggable test runner support](https://github.com/polyfy/polylith/pull/196)
-PR gets merged.
-
-Once the PR mentioned is merged, updates to this codebase will probably cease.
+Breaking changes should be expected at this point.
 
 ## Usage
 
@@ -43,13 +39,13 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
   {:extra-deps
    {polylith/clj-poly
     {:git/url "https://github.com/polyfy/polylith"
-     :git/sha "cce8c7a57ef0c4b58b8fad1c6a9294ac78247c49"
+     :git/sha "abd20bb656e2cdd712732d80e1238316d3ea1b7f"
      :deps/root "projects/poly"}
 
     polylith-kaocha/test-runner
     {:git/url "https://github.com/imrekoszo/polylith-kaocha"
-     :git/tag "v0.6.0"
-     :git/sha "59f9d8b"
+     :git/tag "v0.7.0"
+     :git/sha "see next commit"
      :deps/root "projects/test-runner"}}}}
 
  }
@@ -95,8 +91,8 @@ project:
   {:extra-deps
    {polylith-kaocha/kaocha-wrapper
     {:git/url "https://github.com/imrekoszo/polylith-kaocha"
-     :git/tag "v0.6.0"
-     :git/sha "59f9d8b"
+     :git/tag "v0.7.0"
+     :git/sha "see next commit"
      :deps/root "projects/kaocha-wrapper"}}}}
 
  }
