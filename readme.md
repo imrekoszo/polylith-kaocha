@@ -45,7 +45,7 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
     polylith-kaocha/test-runner
     {:git/url "https://github.com/imrekoszo/polylith-kaocha"
      :git/tag "v0.7.0"
-     :git/sha "see next commit"
+     :git/sha "3426480"
      :deps/root "projects/test-runner"}}}}
 
  }
@@ -92,7 +92,7 @@ project:
    {polylith-kaocha/kaocha-wrapper
     {:git/url "https://github.com/imrekoszo/polylith-kaocha"
      :git/tag "v0.7.0"
-     :git/sha "see next commit"
+     :git/sha "3426480"
      :deps/root "projects/kaocha-wrapper"}}}}
 
  }
