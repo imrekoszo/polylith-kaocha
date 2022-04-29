@@ -24,7 +24,7 @@
                        "components/kaocha-wrapper/test-resources"
                        "components/util/test"
                        "projects/example/test-resources"]
-         :extra-deps {}}
+         :extra-deps {lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}}}
 
   :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
          :extra-paths ["development/poly"]

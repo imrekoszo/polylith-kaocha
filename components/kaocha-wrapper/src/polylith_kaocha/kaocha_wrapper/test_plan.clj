@@ -3,20 +3,16 @@
    [kaocha.api]
    [kaocha.hierarchy]
    [kaocha.testable]
-   [polylith-kaocha.kaocha-wrapper.config :as config]
-   [polylith-kaocha.kaocha-wrapper.plugin-util :as plugin-util]))
-
-(defn test-plan [config]
-  (plugin-util/with-configured-plugins
-    config
-    (kaocha.api/test-plan config)))
+   [polylith-kaocha.kaocha-wrapper.config :as config]))
 
 (defn tests-present-in-config? [config]
   (->> config
-    (test-plan)
+    (kaocha.api/test-plan)
     (kaocha.testable/test-seq)
     (some (some-fn kaocha.hierarchy/leaf? :kaocha.testable/load-error))))
 
-(defn tests-present? [opts]
-  (-> (config/load-poly-prepared-config opts)
-    (tests-present-in-config?)))
+(defn tests-present? [{:keys [is-verbose] :as opts}]
+  (try
+    (config/execute-in-config-context opts tests-present-in-config?)
+    (catch Throwable e
+      (throw (doto e (->> (prn) (when is-verbose)))))))

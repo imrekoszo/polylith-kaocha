@@ -148,7 +148,8 @@ Check the `example` project and the namespaces
 
 ```clojure
 ;; must be available on the project's classpath
-:polylith-kaocha.kaocha-wrapper/post-process-config polylith-kaocha.example.hooks/post-process-config
+:polylith-kaocha.kaocha-wrapper/post-load-config polylith-kaocha.example.hooks/post-load-config
+:polylith-kaocha.kaocha-wrapper/post-enhance-config polylith-kaocha.example.hooks/post-enhance-config
 :polylith-kaocha/tests-present? polylith-kaocha.example.hooks/tests-present?
 :polylith-kaocha/run-tests polylith-kaocha.example.hooks/run-tests
 

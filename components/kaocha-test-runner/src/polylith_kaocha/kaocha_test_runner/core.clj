@@ -14,7 +14,7 @@
 
 (defn runner-opts->kaocha-poly-opts
   [{:keys [#_workspace project changes test-settings color-mode is-verbose]}]
-  (let [{:keys [name paths]} project
+  (let [{:keys [name paths project-dir]} project
         {:keys [project-to-projects-to-test]} changes
         projects-to-test (get project-to-projects-to-test name)
         path-to-consider-for-test? (path-to-consider-for-test?-fn projects-to-test)
@@ -23,13 +23,17 @@
     (cond-> {:src-paths src-paths
              :test-paths test-paths
              :is-verbose is-verbose
-             :is-colored (not= "none" color-mode)}
+             :is-colored (not= "none" color-mode)
+             :project-dir project-dir}
 
       (contains? test-settings :polylith-kaocha/config-resource)
       (assoc :config-resource (:polylith-kaocha/config-resource test-settings))
 
-      (contains? test-settings :polylith-kaocha.kaocha-wrapper/post-process-config)
-      (assoc :post-process-config (:polylith-kaocha.kaocha-wrapper/post-process-config test-settings)))))
+      (contains? test-settings :polylith-kaocha.kaocha-wrapper/post-load-config)
+      (assoc :post-load-config (:polylith-kaocha.kaocha-wrapper/post-load-config test-settings))
+
+      (contains? test-settings :polylith-kaocha.kaocha-wrapper/post-enhance-config)
+      (assoc :post-enhance-config (:polylith-kaocha.kaocha-wrapper/post-enhance-config test-settings)))))
 
 (defn create
   "Returns a test TestRunner which does its job by invoking functions
