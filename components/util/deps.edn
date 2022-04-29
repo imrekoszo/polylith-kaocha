@@ -1,0 +1,6 @@
+{:paths ["src"]
+ :deps {;; provide this to all downstreams due to the need for exclusions
+        net.cgrand/xforms {:mvn/version "0.19.2"
+                           :exclusions [org.clojure/clojurescript]}}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {}}}}
