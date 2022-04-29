@@ -1,5 +1,6 @@
 #kaocha/v1
-{:plugins [:kaocha.plugin/cloverage
+{:num-tests 10000000
+ :plugins [:kaocha.plugin/cloverage
            :kaocha.plugin.alpha/spec-test-check]
  :reporter #profile {:ci kaocha.report/documentation
                      :default kaocha.report/dots}
