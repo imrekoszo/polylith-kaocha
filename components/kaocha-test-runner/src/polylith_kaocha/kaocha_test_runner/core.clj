@@ -1,23 +1,65 @@
 (ns polylith-kaocha.kaocha-test-runner.core
   (:require
+   [babashka.fs :as fs]
    [net.cgrand.xforms :as x]
+   [polylith-kaocha.kaocha-test-runner.bricks-to-test :as bricks-to-test]
    [polylith-kaocha.util.interface :as util]
    [polylith.clj.core.test-runner-contract.interface :as test-runner-contract]))
 
-(defn path-to-consider-for-test?-fn [projects-to-test]
-  (let [nil-or-project-to-test? (some-fn nil? (set projects-to-test))]
-    (fn path-to-consider? [path]
+(defn brick-paths [{:keys [name type paths] :as _brick}]
+  (->> paths
+    ((juxt :src :test))
+    (eduction
+      (comp cat
+        (map #(str (fs/path (str type "s") name %)))))))
+
+(defmacro verbose-println [runner-opts & args]
+  `(when (:is-verbose ~runner-opts)
+     (println "[polylith-kaocha]" ~@args)))
+
+(defn changed-brick-path?-fn
+  [{:keys [workspace project] :as runner-opts}]
+  (let [{:keys [bases components]} workspace
+
+        ;; cannot rely on (:projects-to-bricks-to-test changes) as polylith
+        ;; assumes a brick is only to be tested if it has test paths
+        ;; whereas kaocha does its own test discovery
+        bricks-to-test (bricks-to-test/bricks-to-test project workspace)
+        brick-paths (into #{}
+                      (comp cat
+                        (filter #(contains? bricks-to-test (:name %)))
+                        (mapcat brick-paths))
+                      [bases components])]
+    (verbose-println runner-opts "Bricks to test:" (sort bricks-to-test))
+    (verbose-println runner-opts "Brick paths:" (sort brick-paths))
+
+    (fn changed-brick-path? [path]
+      (doto
+        (contains? brick-paths path)
+        (-> (if "is a brick path to consider for Kaocha's test discovery"
+              "is NOT considered for Kaocha's test discovery")
+          (->> (verbose-println runner-opts "Path" path)))))))
+
+(defn path-of-project-to-test?-fn
+  [{:keys [project changes] :as _runner-opts}]
+  (let [{:keys [name]} project
+        {:keys [project-to-projects-to-test]} changes
+        projects-to-test (set (project-to-projects-to-test name))]
+    (fn path-of-project-to-test? [path]
       (->> path
         (re-find #"^projects/([^/]+)")
         (second)
-        (nil-or-project-to-test?)))))
+        (contains? projects-to-test)))))
+
+(defn path-to-consider-for-test?-fn [runner-opts]
+  (some-fn
+    (changed-brick-path?-fn runner-opts)
+    (path-of-project-to-test?-fn runner-opts)))
 
 (defn runner-opts->kaocha-poly-opts
-  [{:keys [#_workspace project changes test-settings color-mode is-verbose]}]
-  (let [{:keys [name paths project-dir]} project
-        {:keys [project-to-projects-to-test]} changes
-        projects-to-test (get project-to-projects-to-test name)
-        path-to-consider-for-test? (path-to-consider-for-test?-fn projects-to-test)
+  [{:keys [#_workspace project #_changes test-settings color-mode is-verbose] :as runner-opts}]
+  (let [{:keys [paths project-dir]} project
+        path-to-consider-for-test? (path-to-consider-for-test?-fn runner-opts)
         src-paths (filterv path-to-consider-for-test? (:src paths))
         test-paths (filterv path-to-consider-for-test? (:test paths))]
     (cond-> {:src-paths src-paths
@@ -34,6 +76,11 @@
 
       (contains? test-settings :polylith-kaocha.kaocha-wrapper/post-enhance-config)
       (assoc :post-enhance-config (:polylith-kaocha.kaocha-wrapper/post-enhance-config test-settings)))))
+
+(defn apply-in-project [{:keys [eval-in-project] :as runner-opts} remote-fn-sym kaocha-poly-opts]
+  (let [form (util/rrapply-call-form `'~remote-fn-sym `'~kaocha-poly-opts)]
+    (verbose-println runner-opts "Evaluating in project: " (pr-str form))
+    (eval-in-project form)))
 
 (defn create
   "Returns a test TestRunner which does its job by invoking functions
@@ -53,7 +100,7 @@
    {:foo {:test {:polylith-kaocha/config-resource \"path/from/classpath/root\"}} ; project-specific
    }}
   ```"
-  [{:keys [test-settings is-verbose] :as runner-opts}]
+  [{:keys [test-settings] :as runner-opts}]
   (let [{:polylith-kaocha/keys [runner-opts->kaocha-poly-opts
                                 tests-present?
                                 run-tests]
@@ -62,24 +109,15 @@
               runner-opts->kaocha-poly-opts `runner-opts->kaocha-poly-opts}}
         test-settings
 
-        kaocha-poly-opts (util/rrapply runner-opts->kaocha-poly-opts runner-opts)
-        tests-present?-form (util/rrapply-call-form `'~tests-present? `'~kaocha-poly-opts)
-        run-tests-form (util/rrapply-call-form `'~run-tests `'~kaocha-poly-opts)]
+        kaocha-poly-opts* (delay (util/rrapply runner-opts->kaocha-poly-opts runner-opts))]
     (reify test-runner-contract/TestRunner
-      (test-runner-name [_] "Kaocha test runner")
+      (test-runner-name [_] "Polylith-Kaocha test runner")
 
       (test-sources-present? [_]
-        (->> kaocha-poly-opts
-          ((juxt :src-paths :test-paths))
-          (x/some cat)))
+        (x/some cat ((juxt :src-paths :test-paths) @kaocha-poly-opts*)))
 
-      (tests-present? [_ {:keys [eval-in-project]}]
-        (when is-verbose
-          (println "Evaluating in project: " (pr-str tests-present?-form)))
-        (eval-in-project tests-present?-form))
+      (tests-present? [_ runner-opts]
+        (apply-in-project runner-opts tests-present? @kaocha-poly-opts*))
 
-      (run-tests [_ {:keys [eval-in-project]}]
-        (when is-verbose
-          (println "Evaluating in project: " (pr-str run-tests-form)))
-        (when (pos? (eval-in-project run-tests-form))
-          (throw (Exception. "\nTests failed.")))))))
+      (run-tests [_ runner-opts]
+        (apply-in-project runner-opts run-tests @kaocha-poly-opts*)))))
