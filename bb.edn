@@ -17,4 +17,8 @@
 
   test
   {:doc "clojure -Srepro -M:poly test <args>"
-   :task (apply poly "test" *command-line-args*)}}}
+   :task (apply poly "test" *command-line-args*)}
+
+  test-all-verbose
+  {:doc "bb test :all :verbose"
+   :task (poly "test" :all :verbose)}}}

@@ -6,13 +6,19 @@
    [kaocha.plugin]
    [kaocha.report]
    [kaocha.result]
+   [kaocha.specs]
    [polylith-kaocha.kaocha-wrapper.config :as config]
    [slingshot.slingshot :refer [try+]]))
 
 (defn with-debug-reporter [kaocha-reporter]
-  (cond-> kaocha-reporter
-    (not-any? #{kaocha.report/debug} kaocha-reporter)
-    (conj kaocha.report/debug)))
+  (assert (s/valid? :kaocha/reporter kaocha-reporter))
+  (as-> kaocha-reporter $
+    (cond-> $
+      (not (vector? $))
+      (vector))
+    (cond-> $
+      (not-any? #{kaocha.report/debug} $)
+      (conj kaocha.report/debug))))
 
 (defn with-verbosity [config {:keys [is-verbose]}]
   (cond-> config
