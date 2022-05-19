@@ -1,6 +1,6 @@
 # polylith-kaocha
 
-Simple [Kaocha](https://github.com/lambdaisland/kaocha )-based test runner
+Simple [Kaocha](https://github.com/lambdaisland/kaocha/)-based test runner
 implementation for [Polylith](https://github.com/polyfy/polylith/).
 
 Created as a demonstration for Polylith's
@@ -10,18 +10,17 @@ extensibility by providing a few hooks throughout the process.
 
 ### Disclaimer
 
-This repository aims to serve as an example implementation of a test runner that
-can be plugged into a Polylith workspace. The source code itself is organized
-into a Polylith workspace for the following reasons:
+This repository started out aiming to serve as an example implementation of a test runner that can be plugged into a
+Polylith workspace. The source code itself is organized into a Polylith workspace for the following reasons:
 
 1. So that it eats its own dogfood, that is, tests for this repository are
    executed using the product of it
 2. So that the author can practice setting up a Polylith repository
 
-This repository is not intended to serve as a demonstration of a Polylith
-workspace and in places might not be fully idiomatic Polylith.
+This repository is not intended to serve as a demonstration of a Polylith workspace and in places might not be fully
+idiomatic Polylith.
 
-Breaking changes should be expected at this point.
+Alpha software. While breaking changes are not planned at this point, they should not come as a surprise.
 
 ## Usage
 
