@@ -30,7 +30,7 @@
          :extra-paths ["development/poly"]
          :extra-deps {polylith/clj-poly
                       {:git/url "https://github.com/polyfy/polylith"
-                       :git/sha "abd20bb656e2cdd712732d80e1238316d3ea1b7f"
+                       :git/sha "f0d38cb71e9d3f7a620a4baecb491da4aab91edd"
                        :deps/root "projects/poly"}
 
                       polylith-kaocha/test-runner
