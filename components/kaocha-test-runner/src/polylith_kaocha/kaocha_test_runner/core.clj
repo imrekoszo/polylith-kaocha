@@ -111,7 +111,7 @@
 
         kaocha-poly-opts* (delay (util/rrapply runner-opts->kaocha-poly-opts runner-opts))]
     (reify test-runner-contract/TestRunner
-      (test-runner-name [_] "Polylith-Kaocha test runner")
+      (test-runner-name [_] "polylith-kaocha")
 
       (test-sources-present? [_]
         (x/some cat ((juxt :src-paths :test-paths) @kaocha-poly-opts*)))
