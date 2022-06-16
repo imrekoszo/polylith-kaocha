@@ -14,7 +14,10 @@
 
             "example"
             {:alias "ex"
-             :test {;; must be available on the project's classpath
+             :test {:setup-fn polylith-kaocha.example.test-setup/setup
+                    :teardown-fn polylith-kaocha.example.test-setup/teardown
+
+                    ;; must be available on the project's classpath
                     :polylith-kaocha/config-resource "polylith-kaocha/example/tests.edn"
                     :polylith-kaocha.kaocha-wrapper/post-load-config polylith-kaocha.example.hooks/post-load-config
                     :polylith-kaocha.kaocha-wrapper/post-enhance-config polylith-kaocha.example.hooks/post-enhance-config
