@@ -6,7 +6,7 @@
        :auto-add false}
  :tag-patterns {:stable "stable-*"
                 :release "v[0-9]*"}
- :test {:create-test-runner [:default
+ :test {#_#_:create-test-runner [:default
                              polylith-kaocha.test-runner/create
                              #_polylith-kaocha.reload-runner/create]}
  :projects {"development"
