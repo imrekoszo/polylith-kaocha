@@ -120,4 +120,7 @@
         (apply-in-project runner-opts tests-present? @kaocha-poly-opts*))
 
       (run-tests [_ runner-opts]
-        (apply-in-project runner-opts run-tests @kaocha-poly-opts*)))))
+        (-> runner-opts
+          (apply-in-project run-tests @kaocha-poly-opts*)
+          (zero?)
+          (when-not (throw (Exception. "Tests failed [polylith-kaocha]"))))))))
