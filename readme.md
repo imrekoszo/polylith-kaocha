@@ -38,7 +38,7 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
   {:extra-deps
    {polylith/clj-poly
     {:git/url "https://github.com/polyfy/polylith"
-     :git/sha "349875fa6898d5f8c785c0d7279e6d35c7a39086"
+     :git/sha "ccc261e60f6a875ff30858bf84cf67be105eac6f"
      :deps/root "projects/poly"}
 
     polylith-kaocha/test-runner
@@ -105,9 +105,15 @@ clojure -Srepro -M:poly test <poly test args>
 
 To get debug output, use the `:verbose` poly test arg.
 
-> Note: due to how standalone `poly` tool installations [are set up](https://github.com/imrekoszo/polylith-kaocha/issues/5#issuecomment-1223855462), those will not work with this plugin.<br/> 
+> **Note**
+> 
+> Due to how standalone `poly` tool
+> installations [are set up](https://github.com/imrekoszo/polylith-kaocha/issues/5#issuecomment-1223855462), those will
+> not work with this plugin.<br/>
 > You need to run `clojure -M:poly test` instead of `poly test`.
-
+>
+> However, regardless of whether this plugin is used or not, I generally recommend setting up and using `poly` from an
+> alias in every workspace to have better control over the exact version of the tool on a per-workspace basis.
 
 ### 5. Configuration
 
