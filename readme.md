@@ -24,6 +24,8 @@ Alpha software. While breaking changes are not planned at this point, they shoul
 
 ## Usage
 
+For deps coordinates, see the [Releases](https://github.com/imrekoszo/polylith-kaocha/releases) page.
+
 ### 1. Add dep to :poly alias
 
 Add the above to the `:poly` alias of the root `deps.edn` in your Polylith
@@ -43,8 +45,8 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
 
     polylith-kaocha/test-runner
     {:git/url "https://github.com/imrekoszo/polylith-kaocha"
-     :git/tag "v0.8.1"
-     :git/sha "a457c7f"
+     :git/tag ; see https://github.com/imrekoszo/polylith-kaocha/releases
+     :git/sha ; see https://github.com/imrekoszo/polylith-kaocha/releases
      :deps/root "projects/test-runner"}}}}
 
  }
@@ -90,8 +92,8 @@ project:
   {:extra-deps
    {polylith-kaocha/kaocha-wrapper
     {:git/url "https://github.com/imrekoszo/polylith-kaocha"
-     :git/tag "v0.8.1"
-     :git/sha "a457c7f"
+     :git/tag ; see https://github.com/imrekoszo/polylith-kaocha/releases
+     :git/sha ; see https://github.com/imrekoszo/polylith-kaocha/releases
      :deps/root "projects/kaocha-wrapper"}}}}
 
  }
