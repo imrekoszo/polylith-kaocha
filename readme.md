@@ -105,6 +105,10 @@ clojure -Srepro -M:poly test <poly test args>
 
 To get debug output, use the `:verbose` poly test arg.
 
+> Note: due to how standalone `poly` tool installations [are set up](https://github.com/imrekoszo/polylith-kaocha/issues/5#issuecomment-1223855462), those will not work with this plugin.<br/> 
+> You need to run `clojure -M:poly test` instead of `poly test`.
+
+
 ### 5. Configuration
 
 Out of the box this applies the default Kaocha configuration which at this time
