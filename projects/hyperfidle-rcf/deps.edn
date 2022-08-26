@@ -1,0 +1,10 @@
+{:paths []
+ :deps {poly/hyperfidle-rcf {:local/root "../bases/hyperfidle-rcf"}}
+ :aliases {:test {:extra-paths ["test-resources"]
+                  :extra-deps {polylith-kaocha/kaocha-wrapper {:local/root "../kaocha-wrapper"}
+
+                               ;; kaocha's auto spec test checking needs orchestra and test.check provided
+                               orchestra/orchestra {:mvn/version "2021.01.01-1"}
+                               org.clojure/test.check {:mvn/version "1.1.1"}
+
+                               lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}}}}}

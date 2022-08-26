@@ -24,6 +24,12 @@
                     ;; must be available on the poly tool's classpath
                     :polylith-kaocha/runner-opts->kaocha-poly-opts polylith-kaocha.hooks/runner-opts->kaocha-poly-opts}}
 
+            "hyperfidle-rcf"
+            {:alias "rcf"
+             :test {:setup-fn polylith-kaocha.rcf.test-setup/setup
+                    ;; must be available on the project's classpath
+                    :polylith-kaocha/config-resource "polylith-kaocha/rcf/tests.edn"}}
+
             "kaocha-wrapper"
             {:alias "kw"}
 

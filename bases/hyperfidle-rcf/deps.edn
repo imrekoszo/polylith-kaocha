@@ -1,0 +1,4 @@
+{:paths ["src"]
+ :deps {com.hyperfiddle/rcf {:mvn/version "20220405"}}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {}}}}

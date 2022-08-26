@@ -10,6 +10,8 @@
                       "components/util/src"]
         :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
 
+                     poly/hyperfidle-rcf {:local/root "bases/hyperfidle-rcf"}
+                     
                      ;; poly modules
                      polylith-kaocha.bases/example {:local/root "bases/example"}
                      polylith-kaocha.bases/test-runner {:local/root "bases/test-runner"}
