@@ -1,4 +1,14 @@
 {:paths ["src"]
  :deps {com.hyperfiddle/rcf {:mvn/version "20220405"}}
  :aliases {:test {:extra-paths ["test"]
-                  :extra-deps {}}}}
+                  :extra-deps {}}
+           :itest-runner {:extra-paths ["test"]
+                          :extra-deps  {lambdaisland/kaocha           {:mvn/version "1.66.1034"}
+                                        lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}
+                                        orchestra/orchestra           {:mvn/version "2021.01.01-1"}
+                                        org.slf4j/slf4j-simple {:mvn/version "2.0.0-beta1"}}
+                          :jvm-opts ["-XX:-OmitStackTraceInFastThrow"
+                             ;; Run RCF tests when loading files in REPL
+                             ;; https://github.com/hyperfiddle/rcf#ci
+                                     "-Dhyperfiddle.rcf.generate-tests=true"]
+                          :main-opts   ["-m" "kaocha.runner" "--reporter" "kaocha.report/documentation"]}}}

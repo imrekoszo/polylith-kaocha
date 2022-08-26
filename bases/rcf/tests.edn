@@ -1,0 +1,12 @@
+;; this config is for standalone kaocha
+;; run tests with clojure -M:itest-runner
+#kaocha/v1
+{:num-tests 10000000
+ :tests [{:id          :unit
+          :test-paths  ["test" "src"]
+          :ns-patterns [".*"]}]
+ :plugins [:kaocha.plugin/cloverage
+           :kaocha.plugin.alpha/spec-test-check]
+ :reporter #profile {:ci kaocha.report/documentation
+                     :default kaocha.report/dots}
+ :cloverage/opts {:summary? true :html? true :emma-xml? true :codecov? true}}
