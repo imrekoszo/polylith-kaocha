@@ -24,7 +24,7 @@
                     ;; must be available on the poly tool's classpath
                     :polylith-kaocha/runner-opts->kaocha-poly-opts polylith-kaocha.hooks/runner-opts->kaocha-poly-opts}}
 
-            "hyperfidle-rcf"
+            "rcf"
             {:alias "rcf"
              :test {:setup-fn polylith-kaocha.rcf.test-setup/setup
                     ;; must be available on the project's classpath

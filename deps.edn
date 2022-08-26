@@ -3,14 +3,13 @@
 
                       ;; poly modules workaround for Cursive, https://github.com/cursive-ide/cursive/issues/2554
                       "bases/example/src"
+                      "bases/rcf/src"
                       "bases/test-runner/src"
                       "components/kaocha-test-runner/src"
                       "components/kaocha-wrapper/resources"
                       "components/kaocha-wrapper/src"
                       "components/util/src"]
         :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
-
-                     poly/hyperfidle-rcf {:local/root "bases/hyperfidle-rcf"}
                      
                      ;; poly modules
                      polylith-kaocha.bases/example {:local/root "bases/example"}
@@ -21,11 +20,18 @@
 
   :test {:extra-paths [;; poly modules
                        "bases/example/test"
+                       "bases/rcf/test"
                        "components/kaocha-test-runner/test"
                        "components/kaocha-wrapper/test"
                        "components/kaocha-wrapper/test-resources"
                        "components/util/test"
-                       "projects/example/test-resources"]
+                       "projects/example/test-resources"
+                       "projects/rcf/test"
+                       "projects/rcf/test-resources"]
+         :jvm-opts ["-XX:-OmitStackTraceInFastThrow"
+                             ;; Run RCF tests when loading files in REPL
+                             ;; https://github.com/hyperfiddle/rcf#ci
+                    "-Dhyperfiddle.rcf.generate-tests=true"]
          :extra-deps {lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}}}
 
   :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]

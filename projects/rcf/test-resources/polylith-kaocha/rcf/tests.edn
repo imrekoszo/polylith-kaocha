@@ -1,5 +1,8 @@
 #kaocha/v1
 {:num-tests 10000000
+ :tests [{:id          :unit
+          :test-paths  ["test" "src"]
+          :ns-patterns [".*"]}]
  :plugins [:kaocha.plugin/cloverage
            :kaocha.plugin.alpha/spec-test-check]
  :reporter #profile {:ci kaocha.report/documentation

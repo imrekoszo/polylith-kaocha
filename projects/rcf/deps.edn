@@ -1,6 +1,6 @@
 {:paths []
- :deps {poly/hyperfidle-rcf {:local/root "../bases/hyperfidle-rcf"}}
- :aliases {:test {:extra-paths ["test-resources"]
+ :deps {poly/rcf {:local/root "../../bases/rcf"}}
+ :aliases {:test {:extra-paths ["test" "test-resources"]
                   :extra-deps {polylith-kaocha/kaocha-wrapper {:local/root "../kaocha-wrapper"}
 
                                ;; kaocha's auto spec test checking needs orchestra and test.check provided
