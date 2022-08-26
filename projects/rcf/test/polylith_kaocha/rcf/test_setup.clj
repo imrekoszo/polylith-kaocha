@@ -13,5 +13,6 @@
   (let [{:keys [src-paths test-paths]} opts
         opts (assoc opts
                     :test-paths
-                    (into [] (concat src-paths test-paths)))]
-    (config/default-post-enhance-config config opts)))
+                    (into [] (concat src-paths test-paths)))
+        new-config (config/default-post-enhance-config config opts)]
+    new-config))

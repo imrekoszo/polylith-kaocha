@@ -28,7 +28,8 @@
             {:alias "rcf"
              :test {:setup-fn polylith-kaocha.rcf.test-setup/setup
                     ;; must be available on the project's classpath
-                    :polylith-kaocha/config-resource "polylith-kaocha/rcf/tests.edn"}}
+                    :polylith-kaocha/config-resource "polylith-kaocha/rcf/tests.edn"
+                    :polylith-kaocha.kaocha-wrapper/post-enhance-config polylith-kaocha.rcf.test-setup/post-enhance-config}}
 
             "kaocha-wrapper"
             {:alias "kw"}
