@@ -6,6 +6,7 @@
    [kaocha.plugin]
    [kaocha.report]
    [kaocha.result]
+   [kaocha.runner]
    [kaocha.specs]
    [polylith-kaocha.kaocha-wrapper.config :as config]
    [slingshot.slingshot :refer [try+]]))

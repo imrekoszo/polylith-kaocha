@@ -3,4 +3,5 @@
    [polylith-kaocha.kaocha-wrapper.runner :as core]))
 
 (defn run-tests [opts]
+  (println "Run tests" opts)
   (core/run-tests opts))

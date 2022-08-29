@@ -36,6 +36,10 @@
 
   :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
          :extra-paths ["development/poly"]
+         :jvm-opts ["-XX:-OmitStackTraceInFastThrow"
+                             ;; Run RCF tests when loading files in REPL
+                             ;; https://github.com/hyperfiddle/rcf#ci
+                    "-Dhyperfiddle.rcf.generate-tests=true"]
          :extra-deps {polylith/clj-poly
                       {:git/url "https://github.com/polyfy/polylith"
                        :git/sha "ccc261e60f6a875ff30858bf84cf67be105eac6f"
