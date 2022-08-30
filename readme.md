@@ -164,6 +164,10 @@ Check the `example` project and the namespaces
 :polylith-kaocha/runner-opts->kaocha-poly-opts polylith-kaocha.hooks/runner-opts->kaocha-poly-opts
 ```
 
+### Tips
+
+* To use with [hyperfiddle/rcf](https://github.com/hyperfiddle/rcf), see [ieugen/poly-rcf](https://github.com/ieugen/poly-rcf) and [PR#7](https://github.com/imrekoszo/polylith-kaocha/pull/7)
+
 ## Development
 
 This repository itself is a [Polylith](https://github.com/polyfy/polylith/)
