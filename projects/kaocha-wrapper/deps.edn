@@ -1,4 +1,5 @@
-{:deps {polylith-kaocha.components/kaocha-wrapper {:local/root "../../components/kaocha-wrapper"}
+{:deps {polylith-kaocha.components/kaocha-resource-config-loader {:local/root "../../components/kaocha-resource-config-loader"}
+        polylith-kaocha.components/kaocha-wrapper {:local/root "../../components/kaocha-wrapper"}
         polylith-kaocha.components/util {:local/root "../../components/util"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}}
