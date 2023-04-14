@@ -6,7 +6,15 @@
  {:test
   {:extra-paths ["test-resources"]
    :extra-deps
-   {polylith-kaocha/kaocha-wrapper {:local/root "../kaocha-wrapper"}
+   {
+    ;; this is similar to how a project outside this workspace would reference the wrapper
+    polylith-kaocha/kaocha-wrapper {:local/root "../kaocha-wrapper"}
+
+    ;; region satisfy poly check as it doesn't seem to see through the above line
+    polylith-kaocha.components/kaocha-resource-config-loader {:local/root "../../components/kaocha-resource-config-loader"}
+    polylith-kaocha.components/kaocha-wrapper {:local/root "../../components/kaocha-wrapper"}
+    polylith-kaocha.components/util {:local/root "../../components/util"}
+    ;; endregion satisfy poly check
 
     ;; kaocha's auto spec test checking needs orchestra and test.check provided
     orchestra/orchestra {:mvn/version "2021.01.01-1"}
