@@ -4,6 +4,8 @@
                       ;; poly modules workaround for Cursive, https://github.com/cursive-ide/cursive/issues/2554
                       "bases/example/src"
                       "bases/test-runner/src"
+                      "components/kaocha-resource-config-loader/resources"
+                      "components/kaocha-resource-config-loader/src"
                       "components/kaocha-test-runner/src"
                       "components/kaocha-wrapper/resources"
                       "components/kaocha-wrapper/src"
@@ -13,15 +15,17 @@
                      ;; poly modules
                      polylith-kaocha.bases/example {:local/root "bases/example"}
                      polylith-kaocha.bases/test-runner {:local/root "bases/test-runner"}
+                     polylith-kaocha.components/kaocha-resource-config-loader {:local/root "components/kaocha-resource-config-loader"}
                      polylith-kaocha.components/kaocha-test-runner {:local/root "components/kaocha-test-runner"}
                      polylith-kaocha.components/kaocha-wrapper {:local/root "components/kaocha-wrapper"}
                      polylith-kaocha.components/util {:local/root "components/util"}}}
 
   :test {:extra-paths [;; poly modules
                        "bases/example/test"
+                       "components/kaocha-resource-config-loader/test"
+                       "components/kaocha-resource-config-loader/test-resources"
                        "components/kaocha-test-runner/test"
                        "components/kaocha-wrapper/test"
-                       "components/kaocha-wrapper/test-resources"
                        "components/util/test"
                        "projects/example/test-resources"]
          :extra-deps {lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}}}
