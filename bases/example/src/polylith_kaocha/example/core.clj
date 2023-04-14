@@ -12,4 +12,4 @@
   :args (s/cat :a ::number :b ::number)
   :ret ::number
   :fn (fn [{:keys [args ret]}]
-        (= ret (+ (:a args) (:b args)))))
+        (== ret (+' (:a args) (:b args)))))
