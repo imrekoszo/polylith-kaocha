@@ -201,6 +201,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### macOS Patch ###
+# iCloud generated files
+*.icloud
+
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]
@@ -239,8 +243,6 @@ tags
 # Ignore all local history of files
 .history
 .ionide
-
-# Support for Project snippet scope
 
 ### Windows ###
 # Windows thumbnail cache files
