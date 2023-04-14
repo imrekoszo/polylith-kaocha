@@ -2,8 +2,7 @@
   <code_scheme name="Project" version="173">
     <ClojureCodeStyleSettings>
       <option name="alignMapValues" value="false" />
-      <option name="alignReaderConditionals" value="false" />
-      <option name="oneSpaceLists" value="true" />
+      <option name="commentAlignColumn" value="0" />
       <option name="defaultOnlyIndent" value="true" />
       <option name="forceOnlyIndent" value="true" />
     </ClojureCodeStyleSettings>
