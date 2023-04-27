@@ -56,6 +56,7 @@
       (-> config
         (with-verbosity opts)
         (with-color opts)
+        (doto (verbose-prn "complete config" opts))
         (run-with-complete-config opts)))))
 
 (defn run-tests-with-kaocha [opts]
