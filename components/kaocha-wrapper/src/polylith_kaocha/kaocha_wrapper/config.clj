@@ -38,7 +38,7 @@
 (defn with-hooks [config]
   (kaocha.plugin/run-hook :kaocha.hooks/config config))
 
-(defn with-overridden-paths [{:keys [src-paths test-paths]}]
+(defn with-overridden-paths-fn [{:keys [src-paths test-paths]}]
   (fn [testable]
     (cond-> testable
       (contains? testable :kaocha/source-paths)
@@ -48,7 +48,7 @@
       (assoc :kaocha/test-paths test-paths))))
 
 (defn with-poly-paths [config opts]
-  (update config :kaocha/tests #(mapv (with-overridden-paths opts) %)))
+  (update config :kaocha/tests #(mapv (with-overridden-paths-fn opts) %)))
 
 (defn default-post-enhance-config [config opts]
   (-> config
