@@ -5,10 +5,10 @@
  ;; those of polylith/clj-poly when used
  :aliases {:dev {:extra-deps {polylith/clj-api
                               {:git/url "https://github.com/polyfy/polylith"
-                               :git/sha "bd84789c9fe41eaaf19d431f1fc8772808c9eaad"
+                               :git/sha "a073b7c8dbea176a8cb39b3c4d7c3d465c99e946"
                                :deps/root "projects/api"}}}
            :test {:extra-paths []
                   :extra-deps {polylith/clj-api
                                {:git/url "https://github.com/polyfy/polylith"
-                                :git/sha "bd84789c9fe41eaaf19d431f1fc8772808c9eaad"
+                                :git/sha "a073b7c8dbea176a8cb39b3c4d7c3d465c99e946"
                                 :deps/root "projects/api"}}}}}
