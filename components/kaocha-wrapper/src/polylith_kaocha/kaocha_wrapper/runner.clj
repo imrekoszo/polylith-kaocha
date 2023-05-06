@@ -8,6 +8,7 @@
    [kaocha.result]
    [kaocha.specs]
    [polylith-kaocha.kaocha-wrapper.config :as config]
+   [polylith-kaocha.kaocha-wrapper.print :as print]
    [slingshot.slingshot :refer [try+]]))
 
 (defn with-debug-reporter [kaocha-reporter]
@@ -34,12 +35,6 @@
     (kaocha.plugin/run-hook :kaocha.hooks/post-summary)
     (:kaocha.result/tests)))
 
-(defn verbose-prn [x label {:keys [is-verbose]}]
-  (when is-verbose
-    (println
-      (str "[polylith-kaocha] " label ":")
-      (pr-str x))))
-
 (defn run-with-complete-config [config opts]
   (kaocha.plugin/run-hook :kaocha.hooks/main config)
   (let [{:kaocha.result/keys [error fail]}
@@ -47,7 +42,7 @@
           (run-to-test-results!)
           (doto (when-not (throw (Exception. "Unable to create test summary."))))
           (kaocha.result/totals)
-          (doto (verbose-prn "kaocha.result" opts)))]
+          (doto (print/verbose-prn "kaocha.result" opts)))]
     (+ error fail)))
 
 (defn in-context-runner [opts]
@@ -56,7 +51,7 @@
       (-> config
         (with-verbosity opts)
         (with-color opts)
-        (doto (verbose-prn "complete config" opts))
+        (doto (print/verbose-prn "complete config" opts))
         (run-with-complete-config opts)))))
 
 (defn run-tests-with-kaocha [opts]
@@ -64,15 +59,15 @@
     (config/execute-in-config-context opts (in-context-runner opts))
     (catch :kaocha/early-exit early-exit
       (-> early-exit
-        (doto (verbose-prn "kaocha/early-exit" opts))
+        (doto (print/verbose-prn "kaocha/early-exit" opts))
         (:kaocha/early-exit)))))
 
 (defn run-tests [opts]
   (try
     (->
       (run-tests-with-kaocha opts)
-      (doto (verbose-prn "run-tests-with-kaocha" opts)))
+      (doto (print/verbose-prn "run-tests-with-kaocha" opts)))
     (catch Throwable e
       (-> e
-        (doto (verbose-prn "run-tests-with-kaocha threw" opts))
+        (doto (print/verbose-prn "run-tests-with-kaocha threw" opts))
         (throw)))))
