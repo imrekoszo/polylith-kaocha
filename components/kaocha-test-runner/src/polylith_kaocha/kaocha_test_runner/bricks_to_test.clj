@@ -1,6 +1,5 @@
 (ns polylith-kaocha.kaocha-test-runner.bricks-to-test
-  "Copied from polylith.clj.core.change.bricks-to-test so it doesn't filter out
-  bricks that don't have dedicated test sources"
+  "Copied from polylith.clj.core.change.bricks-to-test, so it doesn't filter out bricks that don't have dedicated test sources."
   (:require [clojure.set :as set]))
 
 (defn bricks-to-test-for-project [{:keys [is-dev alias name base-names component-names]}
