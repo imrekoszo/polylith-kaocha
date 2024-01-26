@@ -1,6 +1,6 @@
 name: tests-and-checks
 run-name: Running project tests & checks
-on: [workflow_dispatch, push, pull_request]
+on: [workflow_dispatch]
 jobs:
   test:
     strategy:
