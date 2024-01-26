@@ -1,0 +1,47 @@
+name: tests-and-checks
+run-name: Running project tests & checks
+on: [workflow_dispatch, push, pull_request]
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        java-version: [8, 11, 21]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: ${{ matrix.java-version }}
+
+      - name: Install Clojure tools
+        uses: DeLaGuardo/setup-clojure@12.3
+        with:
+          cli: latest
+          bb: latest
+
+      - name: Check Versions
+        run: |
+          java -version
+          clojure -version
+          bb --version
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.m2/repository
+            ~/.gitlibs
+            ~/.deps.clj
+          key: cljdeps-${{ hashFiles('deps.edn', 'bb.edn') }}
+          restore-keys: cljdeps-
+
+      - name: Run Clojure tests
+        run: bb run test
