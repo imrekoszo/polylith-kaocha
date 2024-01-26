@@ -1,5 +1,5 @@
 {:paths ["src" "resources"]
- :deps {lambdaisland/kaocha {:mvn/version "1.82.1306"}
-        babashka/fs {:mvn/version "0.3.17"}}
+ :deps {lambdaisland/kaocha {:mvn/version "1.87.1366"}
+        babashka/fs {:mvn/version "0.5.20"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}
