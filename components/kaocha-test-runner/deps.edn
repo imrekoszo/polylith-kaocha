@@ -1,5 +1,5 @@
 {:paths ["src" "resources"]
- :deps {babashka/fs {:mvn/version "0.3.17"}
-        net.cgrand/xforms {:mvn/version "0.19.4"}}
+ :deps {babashka/fs {:mvn/version "0.5.20"}
+        net.cgrand/xforms {:mvn/version "0.19.6"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {}}}}
