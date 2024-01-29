@@ -1,84 +1,68 @@
 (ns polylith-kaocha.kaocha-test-runner.bricks-to-test
   "Copied from polylith.clj.core.change.bricks-to-test, so it doesn't filter out bricks that don't have dedicated test sources."
-  (:require [clojure.set :as set]))
+  (:require
+    [clojure.set :as set]
+    [polylith.clj.core.common.interface :as common]))
 
-(defn bricks-to-test-for-project [{:keys [is-dev alias name base-names component-names]}
-                                  settings
-                                  changed-projects
-                                  changed-components
-                                  changed-bases
-                                  project-to-indirect-changes
-                                  selected-bricks
-                                  selected-projects
-                                  is-dev-user-input
-                                  is-run-all-brick-tests]
+(defn bricks-to-test-
+  "Copied from polylith.
+
+  At commit https://github.com/polyfy/polylith/blob/00579eefcaaa853ede3275e1c6a3395c1f37710b/components/change/src/polylith/clj/core/change/bricks_to_test.clj#L5
+
+  Change indicated inline."
+  [{:keys [is-dev alias name test base-names component-names indirect-changes]}
+   source
+   changed-projects
+   changed-bricks
+   selected-bricks
+   selected-projects
+   is-dev-user-input
+   is-run-all-brick-tests]
   (let [include-project? (or (or (contains? selected-projects name)
                                (contains? selected-projects alias))
                            (and (empty? selected-projects)
                              (or (not is-dev)
                                is-dev-user-input)))
         project-has-changed? (contains? (set changed-projects) name)
-
-
-        ;;
-        ;; HERE IS THE CHANGE PART 1
-        ;;
-        ;; all-brick-names (into #{} (mapcat :test) [base-names component-names])
-        ;;
-        all-brick-names (into #{} (comp (mapcat vals) cat) [base-names component-names])
-        ;;
-        ;;
-        ;; END OF CHANGE PART 1
-        ;;
-
-
-
-        ;; If the :test key is given for a project in workspace.edn, then only include
-        ;; the specified bricks, otherwise, run tests for all bricks that have tests.
-        included-bricks (if-let [bricks (get-in settings [:projects name :test :include])]
-                          (set/intersection all-brick-names (set bricks))
-                          all-brick-names)
+        ;; change
+        ;; we need to consider all referenced bricks as Kaocha might discover tests in src-only bricks too
+        bricks-for-source (into #{} (comp (mapcat vals) cat) [base-names component-names])
+        ;; end change
+        included-bricks (common/brick-names-to-test test bricks-for-source)
         selected-bricks (if selected-bricks
                           (set selected-bricks)
-                          all-brick-names)
+                          bricks-for-source)
         changed-bricks (if include-project?
                          (if (or is-run-all-brick-tests project-has-changed?)
-                           ;; if we pass in :all or :all-bricks or if the project has changed
-                           ;; then always run all brick tests.
                            included-bricks
                            (set/intersection included-bricks
                              selected-bricks
                              (into #{} cat
-                               [changed-components
-                                changed-bases
-                                (-> name project-to-indirect-changes :src)
-                                (-> name project-to-indirect-changes :test)])))
-                         #{})
-        ;; And finally, if brick:BRICK is given, also filter on that, which means that if we
-        ;; pass in both brick:BRICK and :all, we will run the tests for all these bricks,
-        ;; whether they have changed or not (directly or indirectly).
-        bricks-to-test (set/intersection changed-bricks selected-bricks)]
+                               [changed-bricks (source indirect-changes)])))
+                         #{})]
+    (set/intersection changed-bricks selected-bricks)))
 
-
-    ;;
-    ;; HERE IS THE CHANGE PART 2
-    ;;
-    ;; WE ONLY NEED A SET THAT REPRESENTS THE PROJECT'S BRICKS TO TEST
-    ;;
-    bricks-to-test
-    ;;
-    ;; END OF CHANGE PART 2
-    ;;
-    ))
+(defn ensure-at-least-0-2-19
+  "The function bricks-to-test- operates on >=0.2.19-snapshot data so older projects need to be patched."
+  [project settings]
+  (cond-> project
+    (not (contains? project :test))
+    (assoc :test (get-in settings [:projects (:name project) :test]))))
 
 (defn bricks-to-test
+  "Copied from polylith.
+
+  At commit https://github.com/polyfy/polylith/blob/00579eefcaaa853ede3275e1c6a3395c1f37710b/components/change/src/polylith/clj/core/change/bricks_to_test.clj#L49
+
+  Changes:
+  - not associng into project just returning
+  - less lazy"
   [project {:keys [changes settings user-input] :as _workspace}]
-  (let [{:keys [is-dev is-run-all-brick-tests selected-bricks selected-projects]} user-input
-        {:keys [changed-components
-                changed-bases
-                changed-projects
-                project-to-indirect-changes]} changes]
-    (bricks-to-test-for-project
-      project settings changed-projects changed-components changed-bases
-      project-to-indirect-changes selected-bricks selected-projects is-dev
-      is-run-all-brick-tests)))
+  (let [project (ensure-at-least-0-2-19 project settings)
+        {:keys [is-dev is-run-all-brick-tests selected-bricks selected-projects]} user-input
+        {:keys [changed-components changed-bases changed-projects]} changes]
+    (-> #{}
+      (into (bricks-to-test- project :src changed-projects changed-bases selected-bricks selected-projects is-dev is-run-all-brick-tests))
+      (into (bricks-to-test- project :src changed-projects changed-components selected-bricks selected-projects is-dev is-run-all-brick-tests))
+      (into (bricks-to-test- project :test changed-projects changed-bases selected-bricks selected-projects is-dev is-run-all-brick-tests))
+      (into (bricks-to-test- project :test changed-projects changed-components selected-bricks selected-projects is-dev is-run-all-brick-tests)))))

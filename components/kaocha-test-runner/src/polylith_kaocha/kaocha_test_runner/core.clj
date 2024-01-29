@@ -40,11 +40,16 @@
               "is NOT considered for Kaocha's test discovery")
           (->> (verbose-println runner-opts "Path" path)))))))
 
+(defn project-to-test-0-2-19
+  [{:keys [name projects-to-test] :as _project}
+   {:keys [project-to-projects-to-test] :as _changes}]
+  (or projects-to-test ;; poly version > 0.2.18
+    (project-to-projects-to-test name) ;; poly version up to 0.2.18
+    ))
+
 (defn path-of-project-to-test?-fn
   [{:keys [project changes] :as _runner-opts}]
-  (let [{:keys [name]} project
-        {:keys [project-to-projects-to-test]} changes
-        projects-to-test (set (project-to-projects-to-test name))]
+  (let [projects-to-test (set (project-to-test-0-2-19 project changes))]
     (fn path-of-project-to-test? [path]
       (->> path
         (re-find #"^projects/([^/]+)")
