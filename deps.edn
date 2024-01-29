@@ -1,15 +1,5 @@
 {:aliases
- {:dev {:extra-paths ["development/src"
-
-                      ;; poly modules workaround for Cursive, https://github.com/cursive-ide/cursive/issues/2554
-                      "bases/example/src"
-                      "bases/test-runner/src"
-                      "components/kaocha-resource-config-loader/resources"
-                      "components/kaocha-resource-config-loader/src"
-                      "components/kaocha-test-runner/src"
-                      "components/kaocha-wrapper/resources"
-                      "components/kaocha-wrapper/src"
-                      "components/util/src"]
+ {:dev {:extra-paths ["development/src"]
         :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
 
                      ;; poly modules
