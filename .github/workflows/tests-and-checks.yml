@@ -44,4 +44,4 @@ jobs:
           restore-keys: cljdeps-
 
       - name: Run Clojure tests
-        run: bb run test
+        run: bb run test :all :project
