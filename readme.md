@@ -24,7 +24,7 @@ Alpha software. While breaking changes are not planned at this point, they shoul
 
 ## Usage
 
-For deps coordinates, see the [Releases](https://github.com/imrekoszo/polylith-kaocha/releases) page.
+For deps coordinates, see the [Releases](https://github.com/imrekoszo/polylith-kaocha/releases) page. This section assumes that at least `v0.2.19-SNAPSHOT (aece34ab40255fd40038abbff79433fdf7cd5759)` of the poly tool is used. To set polylith-kaocha up with an older version of the poly tool, please see the docs at `v0.8.3` of polylith-kaocha.
 
 ### 1. Add dep to :poly alias
 
@@ -52,29 +52,28 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
  }
 ```
 
-### 2. Reference in workspace config
+### 2. Reference in workspace/project config
 
 After which you can configure your projects to be tested with it
-in `workspace.edn`:
+in `workspace.edn` and/or individual project `config.edn`-s:
 
 ```clojure
-{
+;; To use it as the default test runner in the workspace
+;;
+;; In workspace.edn:
+{:test {:create-test-runner polylith-kaocha.test-runner/create}}
 
- ;; To use it as the default test runner in the workspace
- :test {:create-test-runner polylith-kaocha.test-runner/create}
 
- :projects
- {
-  ;; To only use it for specific projects
-  "foo" {:test {:create-test-runner polylith-kaocha.test-runner/create}}
+;; In project config.edn files:
 
-  ;; To revert to the default test runner only for specific projects
-  "bar" {:test {:create-test-runner :default}}
+;; To only use it for specific projects
+{:test {:create-test-runner polylith-kaocha.test-runner/create}}
 
-  ;; To use it in addition to the default test runner
-  "baz" {:test {:create-test-runner [:default polylith-kaocha.test-runner/create]}}
-  }
- }
+;; To revert to the default test runner only for specific projects
+{:test {:create-test-runner :default}}
+
+;; To use it in addition to the default test runner
+{:test {:create-test-runner [:default polylith-kaocha.test-runner/create]}}
 ```
 
 ### 3. Add kaocha wrapper dep to affected projects
@@ -123,17 +122,14 @@ Out of the box this applies the default Kaocha configuration which at this time
 is to run `clojure.test` tests. There are a few options to change this.
 
 All the following settings can either be applied to the entire workspace, or
-specific projects by adding them to `workspace.edn`:
+specific projects by adding them to configuration:
 
 ```clojure
-{
- :test {;; here to apply them to the entire workspace
-        }
+;; In workspace.edn to make them apply to the entire workspace
+;; In project config.edn files to apply them to specific projects
 
- :projects
- {"foo" {:test {;; here to apply to specific projects
-                }}}
- }
+{:test {;; here
+        }}
 ```
 
 #### Kaocha configuration
