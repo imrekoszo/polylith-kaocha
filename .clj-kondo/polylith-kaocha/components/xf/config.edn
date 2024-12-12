@@ -1,2 +1,0 @@
-{:linters {:unresolved-symbol {:exclude [(net.cgrand.xforms/for [_ %])]}}
- :lint-as {net.cgrand.xforms/for clojure.core/for}}
