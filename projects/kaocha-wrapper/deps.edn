@@ -1,6 +1,6 @@
-{:deps {polylith-kaocha.components/kaocha-resource-config-loader {:local/root "../../components/kaocha-resource-config-loader"}
-        polylith-kaocha.components/kaocha-wrapper {:local/root "../../components/kaocha-wrapper"}
-        polylith-kaocha.components/util {:local/root "../../components/util"}
+{:deps {polylith-kaocha.bricks/kaocha-resource-config-loader {:local/root "../../components/kaocha-resource-config-loader"}
+        polylith-kaocha.bricks/kaocha-wrapper {:local/root "../../components/kaocha-wrapper"}
+        polylith-kaocha.bricks/util {:local/root "../../components/util"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}}
 

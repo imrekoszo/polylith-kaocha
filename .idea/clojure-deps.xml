@@ -4,12 +4,39 @@
     <option name="enabledAliases">
       <set>
         <option value="dev" />
-        <option value="poly" />
         <option value="test" />
       </set>
     </option>
   </component>
   <component name="DepsProjectsManager">
+    <option name="dirTypeMappings">
+      <set>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/bases/example/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/kaocha-resource-config-loader/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/kaocha-resource-config-loader/test-resources" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/kaocha-test-runner/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/components/util/test" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+        <FolderState>
+          <option name="dirUrl" value="file://$PROJECT_DIR$/projects/example/test-resources" />
+          <option name="type" value="TEST_SOURCE" />
+        </FolderState>
+      </set>
+    </option>
     <option name="projectFiles">
       <set>
         <option value="file://$PROJECT_DIR$/deps.edn" />

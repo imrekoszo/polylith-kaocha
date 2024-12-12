@@ -1,14 +1,18 @@
 {:aliases
- {:dev {:extra-paths ["development/src"]
-        :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
+ {:dev {:extra-paths ["development/src" "development/poly"]
+        :extra-deps {org.clojure/clojure {:mvn/version "1.11.4"}
+                     polylith/clj-poly
+                     {:git/url "https://github.com/polyfy/polylith"
+                      :git/sha "aece34ab40255fd40038abbff79433fdf7cd5759"
+                      :deps/root "projects/poly"}
 
                      ;; poly modules
-                     polylith-kaocha.bases/example {:local/root "bases/example"}
-                     polylith-kaocha.bases/test-runner {:local/root "bases/test-runner"}
-                     polylith-kaocha.components/kaocha-resource-config-loader {:local/root "components/kaocha-resource-config-loader"}
-                     polylith-kaocha.components/kaocha-test-runner {:local/root "components/kaocha-test-runner"}
-                     polylith-kaocha.components/kaocha-wrapper {:local/root "components/kaocha-wrapper"}
-                     polylith-kaocha.components/util {:local/root "components/util"}}}
+                     polylith-kaocha.bricks/example {:local/root "bases/example"}
+                     polylith-kaocha.bricks/kaocha-resource-config-loader {:local/root "components/kaocha-resource-config-loader"}
+                     polylith-kaocha.bricks/kaocha-test-runner {:local/root "components/kaocha-test-runner"}
+                     polylith-kaocha.bricks/kaocha-wrapper {:local/root "components/kaocha-wrapper"}
+                     polylith-kaocha.bricks/test-runner {:local/root "bases/test-runner"}
+                     polylith-kaocha.bricks/util {:local/root "components/util"}}}
 
   :test {:extra-paths [;; poly modules
                        "bases/example/test"
