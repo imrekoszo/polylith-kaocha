@@ -2,7 +2,6 @@
   (:require
    [babashka.fs :as fs]
    [net.cgrand.xforms :as x]
-   [polylith-kaocha.kaocha-test-runner.bricks-to-test :as bricks-to-test]
    [polylith-kaocha.util.interface :as util]
    [polylith.clj.core.test-runner-contract.interface :as test-runner-contract]))
 
@@ -20,11 +19,7 @@
 (defn changed-brick-path?-fn
   [{:keys [workspace project] :as runner-opts}]
   (let [{:keys [bases components]} workspace
-
-        ;; cannot rely on (:projects-to-bricks-to-test changes) as polylith
-        ;; assumes a brick is only to be tested if it has test paths
-        ;; whereas kaocha does its own test discovery
-        bricks-to-test (bricks-to-test/bricks-to-test project workspace)
+        bricks-to-test (:bricks-to-test-all-sources project)
         brick-paths (into #{}
                       (comp cat
                         (filter #(contains? bricks-to-test (:name %)))

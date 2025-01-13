@@ -24,11 +24,11 @@ Alpha software. While breaking changes are not planned at this point, they shoul
 
 ## Usage
 
-For deps coordinates, see the [Releases](https://github.com/imrekoszo/polylith-kaocha/releases) page. This section assumes that at least `v0.2.22-SNAPSHOT (345af4992b5ec97b712cd5b1a2a06f731cdfd61d)` of the poly tool is used. To set polylith-kaocha up with an older version of the poly tool, please see the docs at `v0.8.3` or `v0.8.4` of polylith-kaocha.
+For deps coordinates, see the [Releases](https://github.com/imrekoszo/polylith-kaocha/releases) page. The current minimum version of the poly tool required by polylith-kaocha is `v0.2.22-SNAPSHOT (345af4992b5ec97b712cd5b1a2a06f731cdfd61d)`. To set polylith-kaocha up with an older version of the poly tool, please see the docs at `v0.8.3` or `v0.8.4` of polylith-kaocha.
 
 ### 1. Add dep to :poly alias
 
-Add the above to the `:poly` alias of the root `deps.edn` in your Polylith
+Add the following to the `:poly` alias of the root `deps.edn` in your Polylith
 workspace, along with a reference to a version of `polylith/clj-poly` which
 includes [pluggable test runner support](https://github.com/polyfy/polylith/pull/196):
 
@@ -38,7 +38,9 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
  :aliases
  {:poly
   {:extra-deps
-   {polylith/clj-poly
+   {
+
+    polylith/clj-poly
     {:git/url "https://github.com/polyfy/polylith"
      :git/sha "345af4992b5ec97b712cd5b1a2a06f731cdfd61d"
      :deps/root "projects/poly"}
@@ -47,9 +49,9 @@ includes [pluggable test runner support](https://github.com/polyfy/polylith/pull
     {:git/url "https://github.com/imrekoszo/polylith-kaocha"
      :git/tag ; see https://github.com/imrekoszo/polylith-kaocha/releases
      :git/sha ; see https://github.com/imrekoszo/polylith-kaocha/releases
-     :deps/root "projects/test-runner"}}}}
+     :deps/root "projects/test-runner"}
 
- }
+    }}}}
 ```
 
 ### 2. Reference in workspace config
@@ -90,13 +92,15 @@ project:
  :aliases
  {:test
   {:extra-deps
-   {polylith-kaocha/kaocha-wrapper
+   {
+
+    polylith-kaocha/kaocha-wrapper
     {:git/url "https://github.com/imrekoszo/polylith-kaocha"
      :git/tag ; see https://github.com/imrekoszo/polylith-kaocha/releases
      :git/sha ; see https://github.com/imrekoszo/polylith-kaocha/releases
-     :deps/root "projects/kaocha-wrapper"}}}}
+     :deps/root "projects/kaocha-wrapper"}
 
- }
+    }}}}
 ```
 
 ### 4. Run tests
