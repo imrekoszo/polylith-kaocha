@@ -25,7 +25,8 @@
                     :polylith-kaocha/runner-opts->kaocha-poly-opts polylith-kaocha.hooks/runner-opts->kaocha-poly-opts}}
 
             "kaocha-wrapper"
-            {:alias "kw"}
+            {:alias "kw"
+             :necessary ["kaocha-wrapper"]}
 
             "test-runner"
             {:alias "tr"}}}

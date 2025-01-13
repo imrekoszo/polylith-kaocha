@@ -19,7 +19,6 @@
                        "components/kaocha-resource-config-loader/test"
                        "components/kaocha-resource-config-loader/test-resources"
                        "components/kaocha-test-runner/test"
-                       "components/kaocha-wrapper/test"
                        "components/util/test"
                        "projects/example/test-resources"]
          :extra-deps {lambdaisland/kaocha-cloverage {:mvn/version "1.1.89"
