@@ -8,4 +8,24 @@
                 :release "v[0-9]*"}
  :test {:create-test-runner [:default
                              polylith-kaocha.test-runner/create
-                             #_polylith-kaocha.reload-runner/create]}}
+                             #_polylith-kaocha.reload-runner/create]}
+ :projects {"development"
+            {:alias "dev"}
+
+            "example"
+            {:alias "ex"
+             :test {;; must be available on the project's classpath
+                    :polylith-kaocha/config-resource "polylith-kaocha/example/tests.edn"
+                    :polylith-kaocha.kaocha-wrapper/post-load-config polylith-kaocha.example.hooks/post-load-config
+                    :polylith-kaocha.kaocha-wrapper/post-enhance-config polylith-kaocha.example.hooks/post-enhance-config
+                    :polylith-kaocha/tests-present? polylith-kaocha.example.hooks/tests-present?
+                    :polylith-kaocha/run-tests polylith-kaocha.example.hooks/run-tests
+
+                    ;; must be available on the poly tool's classpath
+                    :polylith-kaocha/runner-opts->kaocha-poly-opts polylith-kaocha.hooks/runner-opts->kaocha-poly-opts}}
+
+            "kaocha-wrapper"
+            {:alias "kw"}
+
+            "test-runner"
+            {:alias "tr"}}}

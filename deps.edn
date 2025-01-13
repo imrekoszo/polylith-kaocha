@@ -3,7 +3,7 @@
         :extra-deps {org.clojure/clojure {:mvn/version "1.11.4"}
                      polylith/clj-poly
                      {:git/url "https://github.com/polyfy/polylith"
-                      :git/sha "aece34ab40255fd40038abbff79433fdf7cd5759"
+                      :git/sha "345af4992b5ec97b712cd5b1a2a06f731cdfd61d"
                       :deps/root "projects/poly"}
 
                      ;; poly modules
@@ -29,7 +29,7 @@
          :extra-paths ["development/poly"]
          :extra-deps {polylith/clj-poly
                       {:git/url "https://github.com/polyfy/polylith"
-                       :git/sha "aece34ab40255fd40038abbff79433fdf7cd5759"
+                       :git/sha "345af4992b5ec97b712cd5b1a2a06f731cdfd61d"
                        :deps/root "projects/poly"}
 
                       polylith-kaocha/test-runner
