@@ -19,7 +19,7 @@
 (defn changed-brick-path?-fn
   [{:keys [workspace project] :as runner-opts}]
   (let [{:keys [bases components]} workspace
-        bricks-to-test (:bricks-to-test-all-sources project)
+        bricks-to-test (set (:bricks-to-test-all-sources project))
         brick-paths (into #{}
                       (comp cat
                         (filter #(contains? bricks-to-test (:name %)))
