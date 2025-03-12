@@ -1,0 +1,100 @@
+{:min-clj-kondo-version "2025.02.20"
+ :linters
+ {:discouraged-var
+  {clojure.core/flatten
+   {:message "Avoid lazy processing unless necessary. Also see https://chouser.us/apply-concat/"}
+
+   clojure.core/concat
+   {:message "Avoid lazy processing unless necessary. Consider the `cat` transducer and/or `into` instead. Also see https://stuartsierra.com/2015/04/26/clojure-donts-concat"}
+
+   clojure.core/map
+   {:arities #{2 3 4 :varargs}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity or `mapv` instead."}
+
+   clojure.core/mapv
+   {:arities #{3 4 :varargs}
+    :message "Avoid lazy processing unless necessary. Sadly, I don't know about drop-in idiomatic non-lazy alternatives, but in some cases zipmap could work."}
+
+   clojure.core/filter
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity or `filterv` instead."}
+
+   clojure.core/remove
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity or `filterv` instead."}
+
+   clojure.core/take
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}
+
+   clojure.core/take-while
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}
+
+   clojure.core/drop
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}
+
+   clojure.core/drop-last
+   {:message "Avoid lazy processing unless necessary. Consider `net.cgrand.xforms/drop-last` instead."}
+
+   clojure.core/take-last
+   {:message "Avoid lazy processing unless necessary. Consider `net.cgrand.xforms/take-last` instead."}
+
+   clojure.core/drop-while
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}
+
+   clojure.core/split-at
+   {:message "Avoid lazy processing unless necessary. Consider using the transducer arities of `take` and `drop` instead."}
+
+   clojure.core/split-with
+   {:message "Avoid lazy processing unless necessary. Consider using the transducer arities of `take-while` and `drop-while` instead."}
+
+   clojure.core/dorun
+   {:message "Avoid lazy processing unless necessary. See https://stuartsierra.com/2015/08/25/clojure-donts-lazy-effects"}
+
+   clojure.core/doall
+   {:message "Avoid lazy processing unless necessary. See https://stuartsierra.com/2015/08/25/clojure-donts-lazy-effects"}
+
+   clojure.core/partition
+   {:message "Avoid lazy processing unless necessary. Consider `net.cgrand.xforms/partition` instead."}
+
+   clojure.core/take-nth
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}
+
+   clojure.core/distinct
+   {:arities #{1}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}
+
+   clojure.core/interpose
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}
+
+   clojure.core/partition-by
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}
+
+   clojure.core/reductions
+   {:message "Avoid lazy processing unless necessary. Consider `net.cgrand.xforms/reductions` instead."}
+
+   clojure.core/partition-all
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}
+
+   clojure.core/map-indexed
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}
+
+   clojure.core/keep
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}
+
+   clojure.core/keep-indexed
+   {:arities #{2}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}
+
+   clojure.core/dedupe
+   {:arities #{1}
+    :message "Avoid lazy processing unless necessary. Consider the transducer arity instead."}}}}

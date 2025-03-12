@@ -5,6 +5,10 @@
                      {:git/url "https://github.com/polyfy/polylith"
                       :git/sha "345af4992b5ec97b712cd5b1a2a06f731cdfd61d"
                       :deps/root "projects/poly"}
+                     imrekoszo/unlazy
+                     {:git/url "https://github.com/imrekoszo/unlazy"
+                      :git/tag "v1.0.1"
+                      :git/sha "0ff7496"}
 
                      ;; poly modules
                      polylith-kaocha.bricks/example {:local/root "bases/example"}
