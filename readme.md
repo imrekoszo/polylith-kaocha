@@ -123,6 +123,9 @@ To get debug output, use the `:verbose` poly test arg.
 
 ### 5. Configuration
 
+> [!TIP]
+> See also the relevant section of the documentation of the Poly tool at https://github.com/polyfy/polylith/blob/master/doc/test-runners.adoc#test-configuration
+
 Out of the box this applies the default Kaocha configuration which at this time
 is to run `clojure.test` tests. There are a few options to change this.
 
